@@ -177,7 +177,7 @@ return {
                                     type = 'string',
                                     name = 'version',
                                     description = 't.version should be a string, representing the version of LÖVE for which your game was made. It should be formatted as "X.Y.Z" where X is the major release number, Y the minor, and Z the patch level. It allows LÖVE to display a warning if it isn\'t compatible. Its default is the version of LÖVE running.',
-                                    default = '"11.3"',
+                                    default = '"12.0"',
                                 },
                                 {
                                     type = 'boolean',
@@ -201,6 +201,12 @@ return {
                                     type = 'boolean',
                                     name = 'gammacorrect',
                                     description = 'Determines whether gamma-correct rendering is enabled, when the system supports it.',
+                                    default = 'false',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'highdpi',
+                                    description = 'See love.window.getPixelScale, love.window.toPixels, and love.window.fromPixels. It is recommended to keep this option disabled if you can\'t test your game on a Mac or iOS system with a Retina display, because code will need tweaking to make sure things look correct.',
                                     default = 'false',
                                 },
                                 {
@@ -322,12 +328,6 @@ return {
                                             name = 'display',
                                             description = 'The index of the display to show the window in, if multiple monitors are available.',
                                             default = '1',
-                                        },
-                                        {
-                                            type = 'boolean',
-                                            name = 'highdpi',
-                                            description = 'See love.window.getPixelScale, love.window.toPixels, and love.window.fromPixels. It is recommended to keep this option disabled if you can\'t test your game on a Mac or iOS system with a Retina display, because code will need tweaking to make sure things look correct.',
-                                            default = 'false',
                                         },
                                         {
                                             type = 'number',
@@ -817,6 +817,14 @@ return {
                     },
                 },
             },
+        },
+        {
+            name = 'localechanged',
+            description = 'Callback function triggered when the user\'s system locale preferences have changed.',
+            variants = {
+                {
+                },
+            }
         },
         {
             name = 'lowmemory',
