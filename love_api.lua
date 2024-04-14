@@ -753,6 +753,41 @@ return {
             },
         },
         {
+            name = 'joysticksensorupdated',
+            description = 'Called when a Joystick\'s sensor is updated with new values.\nOnly Joystick sensors enabled with Joystick:setSensorEnabled will trigger this event.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'Joystick',
+                            name = 'joystick',
+                            description = 'The joystick object.',
+                        },
+                        {
+                            type = 'SensorType',
+                            name = 'sensorType',
+                            description = 'The type of sensor.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The new sensor 1st value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The new sensor 2nd value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'z',
+                            description = 'The new sensor 3rd value.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'keypressed',
             description = 'Callback function triggered when a key is pressed.',
             variants = {
@@ -1025,6 +1060,36 @@ return {
             },
         },
         {
+            name = 'sensorupdated',
+            description = 'Called when the in-device sensor is updated with new values.\nOnly sensors enabled with love.sensor.setEnabled will trigger this event.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'SensorType',
+                            name = 'sensorType',
+                            description = 'The type of sensor.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The new sensor 1st value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The new sensor 2nd value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'z',
+                            description = 'The new sensor 3rd value.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'textedited',
             description = 'Called when the candidate text for an IME (Input Method Editor) has changed.\n\nThe candidate text is not the final text that the user will eventually choose. Use love.textinput for that.',
             variants = {
@@ -1255,6 +1320,21 @@ return {
                             name = 'y',
                             description = 'Amount of vertical mouse wheel movement. Positive values indicate upward movement.',
                         },
+                        {
+                            type = 'number',
+                            name = 'px',
+                            description = 'Precise x value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'py',
+                            description = 'Precise y value.',
+                        },
+                        {
+                            type = 'string',
+                            name = 'dir',
+                            description = '"flipped" or "standard"'
+                        }
                     },
                 },
             },

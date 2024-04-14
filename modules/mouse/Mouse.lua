@@ -23,6 +23,26 @@ return {
             },
         },
         {
+            name = 'getGlobalPosition',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getPosition',
             description = 'Returns the current position of the mouse.',
             variants = {

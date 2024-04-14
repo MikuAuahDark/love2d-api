@@ -62,5 +62,29 @@ return {
             name = 'dpright',
             description = 'D-pad right.',
         },
+        {
+            name = 'misc1',
+            description = 'Xbox Series X controller share button, PS5 controller mic button, and Switch Pro controller capture button.',
+        },
+        {
+            name = 'paddle1',
+            description = 'First paddle button.',
+        },
+        {
+            name = 'paddle2',
+            description = 'Second paddle button.',
+        },
+        {
+            name = 'paddle3',
+            description = 'Third paddle button.',
+        },
+        {
+            name = 'paddle4',
+            description = 'Fourth paddle button.',
+        },
+        {
+            name = 'touchpad',
+            description = 'Controller touchpad press.',
+        },
     },
 }

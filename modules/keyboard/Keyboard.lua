@@ -139,6 +139,28 @@ return {
             },
         },
         {
+            name = 'isModifierActive',
+            description = 'Checks whether a modifier key is active.\nExample of modifier keys are caps lock, num lock, and scroll lock while also have press/release state, additionally also have active state.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'ModifierKey',
+                            name = 'modifier',
+                            description = 'Modifier key to check.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'active',
+                            description = 'Wheter the specified modifier key is active or not.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'isScancodeDown',
             description = 'Checks whether the specified Scancodes are pressed. Not to be confused with love.keypressed or love.keyreleased.\n\nUnlike regular KeyConstants, Scancodes are keyboard layout-independent. The scancode \'w\' is used if the key in the same place as the \'w\' key on an American keyboard is pressed, no matter what the key is labelled or what the user\'s operating system settings are.',
             variants = {
@@ -229,6 +251,7 @@ return {
     },
     enums = {
         (require(path .. 'enums.KeyConstant')),
+        (require(path .. 'enums.ModifierKey')),
         (require(path .. 'enums.Scancode')),
     },
 }

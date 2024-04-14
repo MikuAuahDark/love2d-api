@@ -203,7 +203,9 @@ return {
     enums = {
         (require(path .. 'enums.GamepadAxis')),
         (require(path .. 'enums.GamepadButton')),
+        (require(path .. 'enums.GamepadType')),
         (require(path .. 'enums.JoystickHat')),
         (require(path .. 'enums.JoystickInputType')),
+        (require(path .. 'enums.JoystickType')),
     },
 }

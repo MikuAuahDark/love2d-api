@@ -223,6 +223,21 @@ return {
             },
         },
         {
+            name = 'getGamepadType',
+            description = 'Gets the GamepadType of the Joystick, if it\'s recognized as a gamepad.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'GamepadType',
+                            name = 'gamepadtype',
+                            description = 'The type of the gamepad, or "unknown" if it can\'t be determined.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getHat',
             description = 'Gets the direction of the Joystick\'s hat.',
             variants = {
@@ -280,6 +295,21 @@ return {
             },
         },
         {
+            name = 'getJoystickType',
+            description = 'Gets the JoystickType of the Joystick.\nJoystickTypes are broader categories than GamepadTypes.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'JoystickType',
+                            name = 'joysticktype',
+                            description = 'The type of the joystick, or "unknown" if it can\'t be determined.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getName',
             description = 'Gets the name of the joystick.',
             variants = {
@@ -293,6 +323,38 @@ return {
                     },
                 },
             },
+        },
+        {
+            name = 'getSensorData',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'SensorType',
+                            name = 'sensorType',
+                            description = '',
+                        }
+                    },
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'z',
+                            description = '',
+                        },
+                    },
+                }
+            }
         },
         {
             name = 'getVibration',
@@ -309,6 +371,28 @@ return {
                             type = 'number',
                             name = 'right',
                             description = 'Current strength of the right vibration motor on the Joystick.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'hasSensor',
+            description = 'Gets whether the specified sensor exists in the Joystick.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'SensorType',
+                            name = 'sensorType',
+                            description = 'Type of sensor to check.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'available',
+                            description = 'Sensor availability status.',
                         },
                     },
                 },
@@ -390,6 +474,28 @@ return {
             },
         },
         {
+            name = 'isSensorEnabled',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'SensorType',
+                            name = 'sensorType',
+                            description = '',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'enabled',
+                            description = '',
+                        },
+                    },
+                }
+            }
+        },
+        {
             name = 'isVibrationSupported',
             description = 'Gets whether the Joystick supports vibration.',
             variants = {
@@ -404,6 +510,21 @@ return {
                     },
                 },
             },
+        },
+        {
+            name = 'setSensorEnabled',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'SensorType',
+                            name = 'sensorType',
+                            description = '',
+                        },
+                    },
+                }
+            }
         },
         {
             name = 'setVibration',
