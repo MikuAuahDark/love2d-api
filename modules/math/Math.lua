@@ -710,11 +710,11 @@ return {
             },
         },
         {
-            name = 'noise',
-            description = 'Generates a Simplex or Perlin noise value in 1-4 dimensions. The return value will always be the same, given the same arguments.\n\nSimplex noise is closely related to Perlin noise. It is widely used for procedural content generation.\n\nThere are many webpages which discuss Perlin and Simplex noise in detail.',
+            name = 'perlinNoise',
+            description = 'Generates a Perlin noise value in 1-4 dimensions. The return value will always be the same, given the same arguments.\n\nIt is widely used for procedural content generation.\n\nThere are many webpages which discuss Perlin and Simplex noise in detail.',
             variants = {
                 {
-                    description = 'Generates Simplex noise from 1 dimension.',
+                    description = 'Generates Perlin noise from 1 dimension.',
                     arguments = {
                         {
                             type = 'number',
@@ -731,7 +731,7 @@ return {
                     },
                 },
                 {
-                    description = 'Generates Simplex noise from 2 dimensions.',
+                    description = 'Generates Perlin noise from 2 dimensions.',
                     arguments = {
                         {
                             type = 'number',
@@ -753,7 +753,7 @@ return {
                     },
                 },
                 {
-                    description = 'Generates Perlin noise (Simplex noise in version 0.9.2 and older) from 3 dimensions.',
+                    description = 'Generates Perlin noise from 3 dimensions.',
                     arguments = {
                         {
                             type = 'number',
@@ -780,7 +780,7 @@ return {
                     },
                 },
                 {
-                    description = 'Generates Perlin noise (Simplex noise in version 0.9.2 and older) from 4 dimensions.',
+                    description = 'Generates Perlin noise from 4 dimensions.',
                     arguments = {
                         {
                             type = 'number',
@@ -892,6 +892,110 @@ return {
                             type = 'number',
                             name = 'number',
                             description = 'Normally distributed random number with variance (stddev)² and the specified mean.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'simplexNoise',
+            description = 'Generates a Simplex noise value in 1-4 dimensions. The return value will always be the same, given the same arguments.\n\nIt is widely used for procedural content generation.\n\nThere are many webpages which discuss Perlin and Simplex noise in detail.',
+            variants = {
+                {
+                    description = 'Generates Simplex noise from 1 dimension.',
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The number used to generate the noise value.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'value',
+                            description = 'The noise value in the range of 1.',
+                        },
+                    },
+                },
+                {
+                    description = 'Generates Simplex noise from 2 dimensions.',
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The first value of the 2-dimensional vector used to generate the noise value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The second value of the 2-dimensional vector used to generate the noise value.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'value',
+                            description = 'The noise value in the range of 1.',
+                        },
+                    },
+                },
+                {
+                    description = 'Generates Simplex noise from 3 dimensions.',
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The first value of the 3-dimensional vector used to generate the noise value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The second value of the 3-dimensional vector used to generate the noise value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'z',
+                            description = 'The third value of the 3-dimensional vector used to generate the noise value.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'value',
+                            description = 'The noise value in the range of 1.',
+                        },
+                    },
+                },
+                {
+                    description = 'Generates Simplex noise from 4 dimensions.',
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The first value of the 4-dimensional vector used to generate the noise value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The second value of the 4-dimensional vector used to generate the noise value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'z',
+                            description = 'The third value of the 4-dimensional vector used to generate the noise value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'w',
+                            description = 'The fourth value of the 4-dimensional vector used to generate the noise value.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'value',
+                            description = 'The noise value in the range of 1.',
                         },
                     },
                 },

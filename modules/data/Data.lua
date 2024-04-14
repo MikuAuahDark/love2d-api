@@ -315,6 +315,11 @@ return {
                 {
                     arguments = {
                         {
+                            type = 'ContainerType',
+                            name = 'containerType',
+                            description = 'What type to return the message digest data as.'
+                        },
+                        {
                             type = 'HashFunction',
                             name = 'hashFunction',
                             description = 'Hash algorithm to use.',
@@ -327,15 +332,20 @@ return {
                     },
                     returns = {
                         {
-                            type = 'string',
+                            type = 'Data or string',
                             name = 'rawdigest',
-                            description = 'Raw message digest string.',
+                            description = 'Raw message digest data.',
                         },
                     },
                 },
                 {
-                    description = 'To return the hex string representation of the hash, use love.data.encode\n\nhexDigestString = love.data.encode(\'string\', \'hex\', love.data.hash(algo, data))',
+                    description = 'To return the hex string representation of the hash, use love.data.encode\n\nhexDigestString = love.data.encode(\'string\', \'hex\', love.data.hash(\'string\', algo, data))',
                     arguments = {
+                        {
+                            type = 'ContainerType',
+                            name = 'containerType',
+                            description = 'What type to return the message digest data as.'
+                        },
                         {
                             type = 'HashFunction',
                             name = 'hashFunction',
@@ -349,9 +359,9 @@ return {
                     },
                     returns = {
                         {
-                            type = 'string',
+                            type = 'Data or string',
                             name = 'rawdigest',
-                            description = 'Raw message digest string.',
+                            description = 'Raw message digest data.',
                         },
                     },
                 },

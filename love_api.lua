@@ -1364,6 +1364,49 @@ return {
                     },
                 },
                 {
+                    name = 'getDouble',
+                    description = '',
+                    variants = {
+                        {
+                            arguments = {
+                                {
+                                    type = 'number',
+                                    name = 'offset',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'count',
+                                    description = '',
+                                    default = '1',
+                                }
+                            },
+                            returns = {
+                                {
+                                    type = 'number',
+                                    name = 'number1',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number2',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number3',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = '...',
+                                    description = '',
+                                },
+                            },
+                        },
+                    },
+                },
+                {
                     name = 'getFFIPointer',
                     description = 'Gets an FFI pointer to the Data.\n\nThis function should be preferred instead of Data:getPointer because the latter uses light userdata which can\'t store more all possible memory addresses on some new ARM64 architectures, when LuaJIT is used.',
                     variants = {
@@ -1374,6 +1417,178 @@ return {
                                     name = 'pointer',
                                     description = 'A raw void* pointer to the Data, or nil if FFI is unavailable.',
                                 }
+                            },
+                        },
+                    },
+                },
+                {
+                    name = 'getFloat',
+                    description = '',
+                    variants = {
+                        {
+                            arguments = {
+                                {
+                                    type = 'number',
+                                    name = 'offset',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'count',
+                                    description = '',
+                                    default = '1',
+                                }
+                            },
+                            returns = {
+                                {
+                                    type = 'number',
+                                    name = 'number1',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number2',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number3',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = '...',
+                                    description = '',
+                                },
+                            },
+                        },
+                    },
+                },
+                {
+                    name = 'getInt8',
+                    description = '',
+                    variants = {
+                        {
+                            arguments = {
+                                {
+                                    type = 'number',
+                                    name = 'offset',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'count',
+                                    description = '',
+                                    default = '1',
+                                }
+                            },
+                            returns = {
+                                {
+                                    type = 'number',
+                                    name = 'number1',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number2',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number3',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = '...',
+                                    description = '',
+                                },
+                            },
+                        },
+                    },
+                },
+                {
+                    name = 'getInt16',
+                    description = '',
+                    variants = {
+                        {
+                            arguments = {
+                                {
+                                    type = 'number',
+                                    name = 'offset',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'count',
+                                    description = '',
+                                    default = '1',
+                                }
+                            },
+                            returns = {
+                                {
+                                    type = 'number',
+                                    name = 'number1',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number2',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number3',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = '...',
+                                    description = '',
+                                },
+                            },
+                        },
+                    },
+                },
+                {
+                    name = 'getInt32',
+                    description = '',
+                    variants = {
+                        {
+                            arguments = {
+                                {
+                                    type = 'number',
+                                    name = 'offset',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'count',
+                                    description = '',
+                                    default = '1',
+                                }
+                            },
+                            returns = {
+                                {
+                                    type = 'number',
+                                    name = 'number1',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number2',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number3',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = '...',
+                                    description = '',
+                                },
                             },
                         },
                     },
@@ -1419,6 +1634,135 @@ return {
                                     name = 'data',
                                     description = 'The raw data.',
                                 }
+                            },
+                        },
+                    },
+                },
+                {
+                    name = 'getUInt8',
+                    description = '',
+                    variants = {
+                        {
+                            arguments = {
+                                {
+                                    type = 'number',
+                                    name = 'offset',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'count',
+                                    description = '',
+                                    default = '1',
+                                }
+                            },
+                            returns = {
+                                {
+                                    type = 'number',
+                                    name = 'number1',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number2',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number3',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = '...',
+                                    description = '',
+                                },
+                            },
+                        },
+                    },
+                },
+                {
+                    name = 'getUInt16',
+                    description = '',
+                    variants = {
+                        {
+                            arguments = {
+                                {
+                                    type = 'number',
+                                    name = 'offset',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'count',
+                                    description = '',
+                                    default = '1',
+                                }
+                            },
+                            returns = {
+                                {
+                                    type = 'number',
+                                    name = 'number1',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number2',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number3',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = '...',
+                                    description = '',
+                                },
+                            },
+                        },
+                    },
+                },
+                {
+                    name = 'getUInt32',
+                    description = '',
+                    variants = {
+                        {
+                            arguments = {
+                                {
+                                    type = 'number',
+                                    name = 'offset',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'count',
+                                    description = '',
+                                    default = '1',
+                                }
+                            },
+                            returns = {
+                                {
+                                    type = 'number',
+                                    name = 'number1',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number2',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'number3',
+                                    description = '',
+                                },
+                                {
+                                    type = 'number',
+                                    name = '...',
+                                    description = '',
+                                },
                             },
                         },
                     },
