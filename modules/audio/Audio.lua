@@ -339,6 +339,12 @@ return {
                             name = 'type',
                             description = 'Streaming or static source.',
                         },
+                        {
+                            type = 'StreamType',
+                            name = 'mode',
+                            description = '',
+                            default = '"file"',
+                        },
                     },
                     returns = {
                         {
@@ -360,6 +366,12 @@ return {
                             name = 'type',
                             description = 'Streaming or static source.',
                         },
+                        {
+                            type = 'StreamType',
+                            name = 'mode',
+                            description = '',
+                            default = '"file"',
+                        },
                     },
                     returns = {
                         {
@@ -380,6 +392,12 @@ return {
                             type = 'SourceType',
                             name = 'type',
                             description = 'Streaming or static source.',
+                        },
+                        {
+                            type = 'StreamType',
+                            name = 'mode',
+                            description = '',
+                            default = '"file"',
                         },
                     },
                     returns = {
@@ -802,6 +820,7 @@ return {
         (require(path .. 'enums.EffectWaveform')),
         (require(path .. 'enums.FilterType')),
         (require(path .. 'enums.SourceType')),
+        (require(path .. 'enums.StreamType')),
         (require(path .. 'enums.TimeUnit')),
     },
 }
