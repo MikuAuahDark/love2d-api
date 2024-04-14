@@ -151,6 +151,29 @@ return {
     },
     callbacks = {
         {
+            name = 'audiodisconnected',
+            description = 'Called when the active audio device is disconnected (e.g. physically unplugging headphones).\nAll audio are stopped and loses their playback position when this callback is called.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'table',
+                            name = 'sources',
+                            description = 'List of sources that was playing.',
+                            -- arraytype = 'Source',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'reconnected',
+                            description = 'Is audio re-connection attempt has been done?',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'conf',
             description = 'If a file called conf.lua is present in your game folder (or .love file), it is run before the LÖVE modules are loaded. You can use this file to overwrite the love.conf function, which is later called by the LÖVE \'boot\' script. Using the love.conf function, you can set some configuration options, and change things like the default size of the window, which modules are loaded, and other stuff.',
             variants = {

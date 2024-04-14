@@ -142,6 +142,37 @@ return {
             },
         },
         {
+            name = 'getPlaybackDevice',
+            description = 'Gets the currently active playback device.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'string',
+                            name = 'device',
+                            description = 'The name of the current playback device.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'getPlaybackDevices',
+            description = 'Gets a list of playback devices on the system.\nThe first device in the list is the user\'s default playback device.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'table',
+                            name = 'devices',
+                            description = 'The list of connected playback device names as strings.',
+                            -- arraytype = 'string',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getPosition',
             description = 'Returns the position of the listener. Please note that positional audio only works for mono (i.e. non-stereo) sources.',
             variants = {
@@ -617,6 +648,34 @@ return {
                             type = 'number',
                             name = 'ux, uy, uz',
                             description = 'Up vector of the listener orientation.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'setPlaybackDevice',
+            description = 'Change the audio device to specified device. Also used to reconnect audio device in case of device disconnection.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'name',
+                            description = 'Fully qualified device name, or nil to use system default.',
+                            default = 'nil',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'success',
+                            description = 'Is the function succeeded?',
+                        },
+                        {
+                            type = 'string',
+                            name = 'message',
+                            description = 'Error message on failure (nil on succesful).',
                         },
                     },
                 },
