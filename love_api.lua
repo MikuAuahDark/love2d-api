@@ -1,7 +1,7 @@
 local path = (...):match('(.-)[^%./]+$')
 
 return {
-    version = '11.4',
+    version = '12.0',
     functions = {
         {
             name = 'getVersion',
@@ -112,6 +112,42 @@ return {
                 },
             },
         },
+        {
+            name = 'markDeprecated',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'level',
+                            description = '',
+                        },
+                        {
+                            type = 'string',
+                            name = 'name',
+                            description = '',
+                        },
+                        {
+                            type = 'APIType',
+                            name = 'apiname',
+                            description = '',
+                        },
+                        {
+                            type = 'DeprecationType',
+                            name = 'deprecationtname',
+                            description = '',
+                        },
+                        {
+                            type = 'string',
+                            name = 'replacement',
+                            description = '',
+                            default = 'nil',
+                        }
+                    }
+                }
+            }
+        }
     },
     callbacks = {
         {
@@ -1364,4 +1400,62 @@ return {
         (require(path .. 'modules.video.Video')),
         (require(path .. 'modules.window.Window')),
     },
+    enums = {
+        {
+            name = 'APIType',
+            description = '',
+            constants = {
+                {
+                    name = 'function',
+                    description = '',
+                },
+                {
+                    name = 'functionvariant',
+                    description = '',
+                },
+                {
+                    name = 'method',
+                    description = '',
+                },
+                {
+                    name = 'methodvariant',
+                    description = '',
+                },
+                {
+                    name = 'callback',
+                    description = '',
+                },
+                {
+                    name = 'field',
+                    description = '',
+                },
+                {
+                    name = 'constant',
+                    description = '',
+                },
+                {
+                    name = 'custom',
+                    description = '',
+                },
+            },
+        },
+        {
+            name = 'DeprecationType',
+            description = '',
+            constants = {
+                {
+                    name = 'noreplacement',
+                    description = '',
+                },
+                {
+                    name = 'replaced',
+                    description = '',
+                },
+                {
+                    name = 'renamed',
+                    description = '',
+                },
+            },
+        },
+    }
 }
