@@ -187,12 +187,6 @@ return {
                                 },
                                 {
                                     type = 'boolean',
-                                    name = 'accelerometerjoystick',
-                                    description = 'Sets whether the device accelerometer on iOS and Android should be exposed as a 3-axis Joystick. Disabling the accelerometer when it\'s not used may reduce CPU usage.',
-                                    default = 'true',
-                                },
-                                {
-                                    type = 'boolean',
                                     name = 'externalstorage',
                                     description = 'Sets whether files are saved in external storage (true) or internal storage (false) on Android.',
                                     default = 'false',
@@ -1400,6 +1394,7 @@ return {
         (require(path .. 'modules.math.Math')),
         (require(path .. 'modules.mouse.Mouse')),
         (require(path .. 'modules.physics.Physics')),
+        (require(path .. 'modules.sensor.Sensor')),
         (require(path .. 'modules.sound.Sound')),
         (require(path .. 'modules.system.System')),
         (require(path .. 'modules.thread.Thread')),
