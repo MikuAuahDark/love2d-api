@@ -117,6 +117,28 @@ return {
             },
         },
         {
+            name = 'exists',
+            description = 'Check whether a file or directory exists.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'filename',
+                            description = 'The path to a potential file or directory.'
+                        }
+                    },
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'exists',
+                            description = 'True if there is a file or directory with the specified name. False otherwise.'
+                        }
+                    }
+                }
+            }
+        },
+        {
             name = 'getAppdataDirectory',
             description = 'Returns the application data directory (could be the same as getUserDirectory)',
             variants = {
@@ -191,6 +213,28 @@ return {
             },
         },
         {
+            name = 'getFullCommonPath',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'CommonPath',
+                            name = 'commonPath',
+                            description = '',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'string',
+                            name = 'path',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getIdentity',
             description = 'Gets the write directory name for your game. \n\nNote that this only returns the name of the folder to store your files in, not the full path.',
             variants = {
@@ -244,6 +288,11 @@ return {
                                     name = 'modtime',
                                     description = 'The file\'s last modification time in seconds since the unix epoch, or nil if it can\'t be determined.',
                                 },
+                                {
+                                    type = 'boolean',
+                                    name = 'readonly',
+                                    description = '',
+                                }
                             },
                         },
                     },
@@ -510,6 +559,12 @@ return {
                             name = 'name',
                             description = 'The name (and path) of the file.',
                         },
+                        {
+                            type = 'LoadMode',
+                            name = 'mode',
+                            description = 'Controls to only allow precompiled chunk, plain text, or both.',
+                            default = '"bt"',
+                        },
                     },
                     returns = {
                         {
@@ -621,50 +676,78 @@ return {
             },
         },
         {
-            name = 'newFile',
-            description = 'Creates a new File object. \n\nIt needs to be opened before it can be accessed.',
+            name = 'mountCommonPath',
+            description = '',
             variants = {
                 {
-                    description = 'Please note that this function will not return any error message (e.g. if you use an invalid filename) because it just creates the File Object. You can still check if the file is valid by using File:open which returns a boolean and an error message if something goes wrong while opening the file.',
                     arguments = {
                         {
+                            type = 'CommonPath',
+                            name = 'commonPath',
+                            description = '',
+                        },
+                        {
                             type = 'string',
-                            name = 'filename',
-                            description = 'The filename of the file.',
+                            name = 'mountpoint',
+                            description = '',
+                        },
+                        {
+                            type = 'MountPermissions',
+                            name = 'permission',
+                            description = 'The requested permissions for operating on files and folders in this path after mounting ("read", or "readwrite").',
+                            default = '"read"',
+                        },
+                        {
+                            type = 'boolean',
+                            name = 'appendToPath',
+                            description = 'Whether the archive will be searched when reading a filepath before or after already-mounted archives. This includes the game\'s source and save directories.',
+                            default = 'false'
                         },
                     },
                     returns = {
                         {
-                            type = 'File',
-                            name = 'file',
-                            description = 'The new File object.',
+                            type = 'boolean',
+                            name = 'success',
+                            description = ''
                         },
                     },
                 },
+            },
+        },
+        {
+            name = 'mountFullPath',
+            description = 'Mounts a full platform-dependent path to a zip file or folder for reading or writing in love.filesystem.',
+            variants = {
                 {
-                    description = 'Creates a File object and opens it for reading, writing, or appending.',
                     arguments = {
                         {
                             type = 'string',
-                            name = 'filename',
-                            description = 'The filename of the file.',
+                            name = 'archive',
+                            description = 'The full platform-dependent path to a folder or zip file to mount.',
                         },
                         {
-                            type = 'FileMode',
-                            name = 'mode',
-                            description = 'The mode to open the file in.',
+                            type = 'string',
+                            name = 'mountpoint',
+                            description = 'The new path in love.filesystem the archive or the platform-dependent path will be mounted to.',
+                        },
+                        {
+                            type = 'MountPermissions',
+                            name = 'permission',
+                            description = 'The requested permissions for operating on files and folders in this path after mounting ("read", or "readwrite").',
+                            default = '"read"',
+                        },
+                        {
+                            type = 'boolean',
+                            name = 'appendToPath',
+                            description = 'Whether the archive will be searched when reading a filepath before or after already-mounted archives. This includes the game\'s source and save directories.',
+                            default = 'false'
                         },
                     },
                     returns = {
                         {
-                            type = 'File',
-                            name = 'file',
-                            description = 'The new File object, or nil if an error occurred.',
-                        },
-                        {
-                            type = 'string',
-                            name = 'errorstr',
-                            description = 'The error string if an error occurred.',
+                            type = 'boolean',
+                            name = 'success',
+                            description = 'True if the archive was successfully mounted with the given path and permissions, false otherwise.'
                         },
                     },
                 },
@@ -737,6 +820,38 @@ return {
                             type = 'string',
                             name = 'err',
                             description = 'The error string, if an error occurred.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'openFile',
+            description = 'Opens a new File object, which represents an existing or new file on disk.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'filename',
+                            description = 'The filename of the file.',
+                        },
+                        {
+                            type = 'FileMode',
+                            name = 'mode',
+                            description = 'The mode to open the file in.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'File',
+                            name = 'file',
+                            description = 'The new File object, or nil if an error occurred.',
+                        },
+                        {
+                            type = 'string',
+                            name = 'errorstr',
+                            description = 'The error string if an error occurred.',
                         },
                     },
                 },
@@ -960,6 +1075,50 @@ return {
             },
         },
         {
+            name = 'unmountCommonPath',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'CommonPath',
+                            name = 'commonPath',
+                            description = '',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'success',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'unmountFullPath',
+            description = 'Unmounts a zip file or folder previously mounted with love.filesystem.mountFullPath.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'archive',
+                            description = 'The full platform-dependent path to a folder or zip file which is currently mounted via love.filesystem.mountFullPath.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'success',
+                            description = 'True if the archive was successfully unmounted, false otherwise.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'write',
             description = 'Write data to a file in the save directory. If the file existed already, it will be completely replaced by the new contents.',
             variants = {
@@ -1033,8 +1192,11 @@ return {
     },
     enums = {
         (require(path .. 'enums.BufferMode')),
+        (require(path .. 'enums.CommonPath')),
         (require(path .. 'enums.FileDecoder')),
         (require(path .. 'enums.FileMode')),
         (require(path .. 'enums.FileType')),
+        (require(path .. 'enums.LoadMode')),
+        (require(path .. 'enums.MountPermissions')),
     },
 }
