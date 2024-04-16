@@ -35,20 +35,12 @@ return {
             description = 'The pixel colors of what\'s drawn are compared to the existing pixel colors, and the smaller of the two values for each color component is used. Only works when the "premultiplied" BlendAlphaMode is used in love.graphics.setBlendMode.',
         },
         {
-            name = 'additive',
-            description = 'Additive blend mode.',
+            name = 'none',
+            description = '',
         },
         {
-            name = 'subtractive',
-            description = 'Subtractive blend mode.',
-        },
-        {
-            name = 'multiplicative',
-            description = 'Multiply blend mode.',
-        },
-        {
-            name = 'premultiplied',
-            description = 'Premultiplied alpha blend mode.',
+            name = 'custom',
+            description = '',
         },
     },
 }

@@ -1,5 +1,5 @@
 return {
-    name = 'SpriteBatchUsage',
+    name = 'BufferDataUsage',
     description = 'Usage hints for SpriteBatches and Meshes to optimize data storage and access.',
     constants = {
         {
@@ -13,6 +13,10 @@ return {
         {
             name = 'stream',
             description = 'The object data will always change between draws.',
+        },
+        {
+            name = 'readback',
+            description = '',
         },
     },
 }

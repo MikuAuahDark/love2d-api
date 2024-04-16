@@ -18,5 +18,9 @@ return {
             name = 'clampzero',
             description = 'Clamp the texture. Fills the area outside the texture\'s normal range with transparent black (or opaque black for textures with no alpha channel.)',
         },
+        {
+            name = 'clampone',
+            description = 'Clamp the texture. Fills the area outside the texture\'s normal range with opaque white. ',
+        },
     },
 }

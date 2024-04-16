@@ -4,16 +4,16 @@ return {
     name = 'graphics',
     description = 'The primary responsibility for the love.graphics module is the drawing of lines, shapes, text, Images and other Drawable objects onto the screen. Its secondary responsibilities include loading external files (including Images and Fonts) into memory, creating specialized objects (such as ParticleSystems or Canvases) and managing screen geometry.\n\nLÖVE\'s coordinate system is rooted in the upper-left corner of the screen, which is at location (0, 0). The x axis is horizontal: larger values are further to the right. The y axis is vertical: larger values are further towards the bottom.\n\nIn many cases, you draw images or shapes in terms of their upper-left corner.\n\nMany of the functions are used to manipulate the graphics coordinate system, which is essentially the way coordinates are mapped to the display. You can change the position, scale, and even rotation in this way.',
     types = {
-        (require(path .. 'types.Canvas')),
         (require(path .. 'types.Drawable')),
         (require(path .. 'types.Font')),
-        (require(path .. 'types.Image')),
+        (require(path .. 'types.GraphicsBuffer')),
+        (require(path .. 'types.GraphicsReadback')),
         (require(path .. 'types.Mesh')),
         (require(path .. 'types.ParticleSystem')),
         (require(path .. 'types.Quad')),
         (require(path .. 'types.Shader')),
         (require(path .. 'types.SpriteBatch')),
-        (require(path .. 'types.Text')),
+        (require(path .. 'types.TextBatch')),
         (require(path .. 'types.Texture')),
         (require(path .. 'types.Video')),
     },
@@ -30,6 +30,62 @@ return {
                             description = 'The Transform object to apply to the current graphics coordinate transform.',
                         },
                     },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The position of the new Transform on the x-axis.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The position of the new Transform on the y-axis.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'angle',
+                            description = 'The orientation of the new Transform in radians.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'sx',
+                            description = 'Scale factor on the x-axis.',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'sy',
+                            description = 'Scale factor on the y-axis.',
+                            default = 'sx',
+                        },
+                        {
+                            type = 'number',
+                            name = 'ox',
+                            description = 'Origin offset on the x-axis.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'oy',
+                            description = 'Origin offset on the y-axis.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'kx',
+                            description = 'Shearing / skew factor on the x-axis.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'ky',
+                            description = 'Shearing / skew factor on the y-axis.',
+                            default = '0',
+                        },
+                    }
                 },
             },
         },
@@ -941,7 +997,7 @@ return {
                 {
                     returns = {
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas',
                             description = 'The Canvas set by setCanvas. Returns nil if drawing to the real screen.',
                         },
@@ -952,6 +1008,7 @@ return {
         {
             name = 'getCanvasFormats',
             description = 'Gets the available Canvas formats, and whether each is supported.',
+            -- deprecated = 'replaced by love.graphics.getTextureFormats',
             variants = {
                 {
                     returns = {
@@ -975,6 +1032,7 @@ return {
                             type = 'table',
                             name = 'formats',
                             description = 'A table containing CanvasFormats as keys, and a boolean indicating whether the format is supported as values (taking into account the readable parameter). Not all systems support all formats.',
+                            -- tabletype = {'PixelFormat', 'boolean'},
                         },
                     },
                 },
@@ -1169,6 +1227,7 @@ return {
         {
             name = 'getImageFormats',
             description = 'Gets the raw and compressed pixel formats usable for Images, and whether each is supported.',
+            -- deprecated = 'replaced by love.graphics.getTextureFormats',
             variants = {
                 {
                     returns = {
@@ -1176,6 +1235,7 @@ return {
                             type = 'table',
                             name = 'formats',
                             description = 'A table containing PixelFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.',
+                            -- tabletype = {'PixelFormat', 'boolean'},
                         },
                     },
                 },
@@ -1514,8 +1574,64 @@ return {
             },
         },
         {
+            name = 'getStencilMode',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'StencilMode',
+                            name = 'mode',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'value',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'getStencilState',
+            description = 'Gets the current stencil state configuration.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'StencilAction',
+                            name = 'action',
+                            description = 'Whether and how to modify any stencil values of pixels that are touched by subsequent draws.',
+                        },
+                        {
+                            type = 'CompareMode',
+                            name = 'comparemode',
+                            description = 'The type of comparison (if any) to make for each pixel.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'value',
+                            description = 'The value to use when comparing with the stencil value of each pixel, and the new stencil value to use for pixels if the "replace" stencil action is used. Must be an integer between 0 and 255.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'readmask',
+                            description = 'An 8 bit mask applied to values read from the stencil buffer in subsequent draws.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'writemask',
+                            description = 'An 8 bit mask applied to values written to the stencil buffer in subsequent draws.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getStencilTest',
             description = 'Gets the current stencil test configuration.\n\nWhen stencil testing is enabled, the geometry of everything that is drawn afterward will be clipped / stencilled out based on a comparison between the arguments of this function and the stencil value of each pixel that the geometry touches. The stencil values of pixels are affected via love.graphics.stencil.\n\nEach Canvas has its own per-pixel stencil values.',
+            -- deprecated = 'replaced by love.graphics.getStencilMode or love.graphics.getStencilState',
             variants = {
                 {
                     returns = {
@@ -1543,6 +1659,7 @@ return {
                             type = 'table',
                             name = 'features',
                             description = 'A table containing GraphicsFeature keys, and boolean values indicating whether each feature is supported.',
+                            -- tabletype = {'GraphicsFeature', 'boolean'},
                         },
                     },
                 },
@@ -1558,6 +1675,49 @@ return {
                             type = 'table',
                             name = 'limits',
                             description = 'A table containing GraphicsLimit keys, and number values.',
+                            -- tabletype = {'GraphicsLimit', 'number'},
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'getTextureFormats',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'table',
+                            name = 'flags',
+                            description = '',
+                            table = {
+                                {
+                                    type = 'boolean',
+                                    name = 'canvas',
+                                    description = '',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'computewrite',
+                                    description = '',
+                                    default = 'false',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'readable',
+                                    description = '',
+                                    default = 'nil',
+                                },
+                            },
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'table',
+                            name = 'formats',
+                            description = 'A table containing PixelFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.',
+                            -- tabletype = {'PixelFormat', 'boolean'},
                         },
                     },
                 },
@@ -1573,6 +1733,7 @@ return {
                             type = 'table',
                             name = 'texturetypes',
                             description = 'A table containing TextureTypes as keys, and a boolean indicating whether the type is supported as values. Not all systems support all types.',
+                            -- tabletype = {'TextureTypes', 'boolean'},
                         },
                     },
                 },
@@ -1786,7 +1947,7 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
                             description = 'An Array Image object.',
                         },
@@ -1796,14 +1957,14 @@ return {
         },
         {
             name = 'newCanvas',
-            description = 'Creates a new Canvas object for offscreen rendering.',
+            description = 'Creates a new Texture object for offscreen rendering.',
             variants = {
                 {
                     returns = {
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas',
-                            description = 'A new Canvas with dimensions equal to the window\'s size in pixels.',
+                            description = 'A new Texture with dimensions equal to the window\'s size in pixels.',
                         },
                     },
                 },
@@ -1822,14 +1983,14 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas',
                             description = 'A new Canvas with specified width and height.',
                         },
                     },
                 },
                 {
-                    description = 'Creates a 2D or cubemap Canvas using the given settings.\n\nSome Canvas formats have higher system requirements than the default format. Use love.graphics.getCanvasFormats to check for support.',
+                    description = 'Creates a 2D or cubemap Canvas using the given settings.\n\nSome Canvas formats have higher system requirements than the default format. Use love.graphics.getTextureFormats to check for support.',
                     arguments = {
                         {
                             type = 'number',
@@ -1881,12 +2042,18 @@ return {
                                     description = 'Whether the Canvas has mipmaps, and whether to automatically regenerate them if so.',
                                     default = '\'none\'',
                                 },
+                                {
+                                    type = 'string',
+                                    name = 'debugname',
+                                    description = '',
+                                    default = 'nil',
+                                },
                             },
                         },
                     },
                     returns = {
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas',
                             description = 'A new Canvas with specified width and height.',
                         },
@@ -1955,9 +2122,36 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas',
                             description = 'A new Canvas with specified width and height.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'newComputeShader',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'code',
+                            description = '',
+                        },
+                        {
+                            type = 'table',
+                            name = 'defines',
+                            description = '',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'Shader',
+                            name = 'shader',
+                            description = '',
                         },
                     },
                 },
@@ -1998,7 +2192,7 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
                             description = 'An cubemap Image object.',
                         },
@@ -2035,7 +2229,7 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
                             description = 'An cubemap Image object.',
                         },
@@ -2191,9 +2385,9 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
-                            description = 'A new Image object which can be drawn on screen.',
+                            description = 'A new Texture object which can be drawn on screen.',
                         },
                     },
                 },
@@ -2227,14 +2421,20 @@ return {
                                     description = 'If true, mipmaps for the image will be automatically generated (or taken from the images\'s file if possible, if the image originated from a CompressedImageData).',
                                     default = 'false',
                                 },
+                                {
+                                    type = 'string',
+                                    name = 'debugname',
+                                    description = '',
+                                    default = 'nil',
+                                },
                             },
                         },
                     },
                     returns = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
-                            description = 'A new Image object which can be drawn on screen.',
+                            description = 'A new Texture object which can be drawn on screen.',
                         },
                     },
                 },
@@ -2273,9 +2473,9 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
-                            description = 'A new Image object which can be drawn on screen.',
+                            description = 'A new Texture object which can be drawn on screen.',
                         },
                     },
                 },
@@ -2314,9 +2514,9 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
-                            description = 'A new Image object which can be drawn on screen.',
+                            description = 'A new Texture object which can be drawn on screen.',
                         },
                     },
                 },
@@ -2464,7 +2664,7 @@ return {
                             default = '\'fan\'',
                         },
                         {
-                            type = 'SpriteBatchUsage',
+                            type = 'BufferDataUsage',
                             name = 'usage',
                             description = 'The expected usage of the Mesh. The specified usage mode affects the Mesh\'s memory usage and performance.',
                             default = '\'dynamic\'',
@@ -2493,7 +2693,7 @@ return {
                             default = '\'fan\'',
                         },
                         {
-                            type = 'SpriteBatchUsage',
+                            type = 'BufferDataUsage',
                             name = 'usage',
                             description = 'The expected usage of the Mesh. The specified usage mode affects the Mesh\'s memory usage and performance.',
                             default = '\'dynamic\'',
@@ -2551,7 +2751,7 @@ return {
                             default = '\'fan\'',
                         },
                         {
-                            type = 'SpriteBatchUsage',
+                            type = 'BufferDataUsage',
                             name = 'usage',
                             description = 'The expected usage of the Mesh. The specified usage mode affects the Mesh\'s memory usage and performance.',
                             default = '\'dynamic\'',
@@ -2597,7 +2797,7 @@ return {
                             default = '\'fan\'',
                         },
                         {
-                            type = 'SpriteBatchUsage',
+                            type = 'BufferDataUsage',
                             name = 'usage',
                             description = 'The expected usage of the Mesh. The specified usage mode affects the Mesh\'s memory usage and performance.',
                             default = '\'dynamic\'',
@@ -2649,7 +2849,7 @@ return {
                 {
                     arguments = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
                             description = 'The image to use.',
                         },
@@ -2786,6 +2986,12 @@ return {
                             name = 'code',
                             description = 'The pixel shader or vertex shader code, or a filename pointing to a file with the code.',
                         },
+                        {
+                            type = 'table',
+                            name = 'defines',
+                            description = '',
+                            -- tabletype = {'string', 'string'},
+                        },
                     },
                     returns = {
                         {
@@ -2807,6 +3013,11 @@ return {
                             name = 'vertexcode',
                             description = 'The vertex shader code, or a filename pointing to a file with the code.',
                         },
+                        {
+                            type = 'table',
+                            name = 'defines',
+                            description = '',
+                        },
                     },
                     returns = {
                         {
@@ -2825,7 +3036,7 @@ return {
                 {
                     arguments = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
                             description = 'The Image to use for the sprites.',
                         },
@@ -2847,7 +3058,7 @@ return {
                 {
                     arguments = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
                             description = 'The Image to use for the sprites.',
                         },
@@ -2858,7 +3069,7 @@ return {
                             default = '1000',
                         },
                         {
-                            type = 'SpriteBatchUsage',
+                            type = 'BufferDataUsage',
                             name = 'usage',
                             description = 'The expected usage of the SpriteBatch. The specified usage mode affects the SpriteBatch\'s memory usage and performance.',
                             default = '\'dynamic\'',
@@ -2886,7 +3097,7 @@ return {
                             default = '1000',
                         },
                         {
-                            type = 'SpriteBatchUsage',
+                            type = 'BufferDataUsage',
                             name = 'usage',
                             description = 'The expected usage of the SpriteBatch. The specified usage mode affects the SpriteBatch\'s memory usage and performance.',
                             default = '\'dynamic\'',
@@ -2905,6 +3116,7 @@ return {
         {
             name = 'newText',
             description = 'Creates a new drawable Text object.',
+            -- deprecated = 'renamed to love.graphics.newTextBatch',
             variants = {
                 {
                     arguments = {
@@ -2922,7 +3134,7 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Text',
+                            type = 'TextBatch',
                             name = 'text',
                             description = 'The new drawable Text object.',
                         },
@@ -2970,9 +3182,345 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Text',
+                            type = 'TextBatch',
                             name = 'text',
                             description = 'The new drawable Text object.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'newTextBatch',
+            description = 'Creates a new drawable Text object.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'Font',
+                            name = 'font',
+                            description = 'The font to use for the text.',
+                        },
+                        {
+                            type = 'string',
+                            name = 'textstring',
+                            description = 'The initial string of text that the new Text object will contain. May be nil.',
+                            default = 'nil',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'TextBatch',
+                            name = 'text',
+                            description = 'The new drawable Text object.',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'Font',
+                            name = 'font',
+                            description = 'The font to use for the text.',
+                        },
+                        {
+                            type = 'table',
+                            name = 'coloredtext',
+                            description = 'A table containing colors and strings to add to the object, in the form of {color1, string1, color2, string2, ...}.',
+                            table = {
+                                {
+                                    type = 'table',
+                                    name = 'color1',
+                                    description = 'A table containing red, green, blue, and optional alpha components to use as a color for the next string in the table, in the form of {red, green, blue, alpha}.'
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'string1',
+                                    description = 'A string of text which has a color specified by the previous color.',
+                                },
+                                {
+                                    type = 'table',
+                                    name = 'color2',
+                                    description = 'A table containing red, green, blue, and optional alpha components to use as a color for the next string in the table, in the form of {red, green, blue, alpha}.',
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'string2',
+                                    description = 'A string of text which has a color specified by the previous color.',
+                                },
+                                {
+                                    type = 'Variant',
+                                    name = '...',
+                                    description = 'Additional colors and strings.',
+                                },
+                            },
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'TextBatch',
+                            name = 'text',
+                            description = 'The new drawable Text object.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'newTexture',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'width',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'height',
+                            description = '',
+                        },
+                        {
+                            type = 'table',
+                            name = 'settings',
+                            description = 'A table containing the following fields:',
+                            table = {
+                                {
+                                    type = 'TextureType',
+                                    name = 'type',
+                                    description = 'The type of Canvas to create.',
+                                    default = '\'2d\'',
+                                },
+                                {
+                                    type = 'PixelFormat',
+                                    name = 'format',
+                                    description = 'The format of the Canvas.',
+                                    default = '\'normal\'',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'readable',
+                                    description = 'Whether the Canvas is readable (drawable and accessible in a Shader). True by default for regular formats, false by default for depth/stencil formats.',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'msaa',
+                                    description = 'The desired number of multisample antialiasing (MSAA) samples used when drawing to the Canvas.',
+                                    default = '0',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'dpiscale',
+                                    description = 'The DPI scale factor of the Canvas, used when drawing to the Canvas as well as when drawing the Canvas to the screen.',
+                                    default = 'love.graphics.getDPIScale()',
+                                },
+                                {
+                                    type = 'MipmapMode',
+                                    name = 'mipmaps',
+                                    description = 'Whether the Canvas has mipmaps, and whether to automatically regenerate them if so.',
+                                    default = '\'none\'',
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'debugname',
+                                    description = '',
+                                    default = 'nil',
+                                },
+                            },
+                            default = 'nil',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'Texture',
+                            name = 'texture',
+                            description = '2D texture',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'width',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'height',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'layers',
+                            description = '',
+                            default = 'nil'
+                        },
+                        {
+                            type = 'table',
+                            name = 'settings',
+                            description = 'A table containing the following fields:',
+                            table = {
+                                {
+                                    type = 'TextureType',
+                                    name = 'type',
+                                    description = 'The type of Canvas to create.',
+                                    default = '\'2d\'',
+                                },
+                                {
+                                    type = 'PixelFormat',
+                                    name = 'format',
+                                    description = 'The format of the Canvas.',
+                                    default = '\'normal\'',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'readable',
+                                    description = 'Whether the Canvas is readable (drawable and accessible in a Shader). True by default for regular formats, false by default for depth/stencil formats.',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'msaa',
+                                    description = 'The desired number of multisample antialiasing (MSAA) samples used when drawing to the Canvas.',
+                                    default = '0',
+                                },
+                                {
+                                    type = 'number',
+                                    name = 'dpiscale',
+                                    description = 'The DPI scale factor of the Canvas, used when drawing to the Canvas as well as when drawing the Canvas to the screen.',
+                                    default = 'love.graphics.getDPIScale()',
+                                },
+                                {
+                                    type = 'MipmapMode',
+                                    name = 'mipmaps',
+                                    description = 'Whether the Canvas has mipmaps, and whether to automatically regenerate them if so.',
+                                    default = '\'none\'',
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'debugname',
+                                    description = '',
+                                    default = 'nil',
+                                },
+                            },
+                            default = 'nil',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'Texture',
+                            name = 'texture',
+                            description = '3D array texture',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'filename',
+                            description = '',
+                        },
+                        {
+                            type = 'table',
+                            name = 'settings',
+                            description = 'A table containing the following fields:',
+                            table = {
+                                {
+                                    type = 'number',
+                                    name = 'dpiscale',
+                                    description = 'The DPI scale to use when drawing the image and calling getWidth/getHeight.',
+                                    default = '1',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'linear',
+                                    description = 'True to treat the image\'s pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB.',
+                                    default = 'false',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'mipmaps',
+                                    description = 'If true, mipmaps for the image will be automatically generated (or taken from the images\'s file if possible, if the image originated from a CompressedImageData).',
+                                    default = 'false',
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'debugname',
+                                    description = '',
+                                    default = 'nil',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'canvas',
+                                    description = '',
+                                    default = 'false',
+                                },
+                            },
+                            default = 'nil',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'Texture',
+                            name = 'texture',
+                            description = '2D texture',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'ImageData',
+                            name = 'imagedata',
+                            description = '',
+                        },
+                        {
+                            type = 'table',
+                            name = 'settings',
+                            description = 'A table containing the following fields:',
+                            table = {
+                                {
+                                    type = 'number',
+                                    name = 'dpiscale',
+                                    description = 'The DPI scale to use when drawing the image and calling getWidth/getHeight.',
+                                    default = '1',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'linear',
+                                    description = 'True to treat the image\'s pixels as linear instead of sRGB, when gamma correct rendering is enabled. Most images are authored as sRGB.',
+                                    default = 'false',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'mipmaps',
+                                    description = 'If true, mipmaps for the image will be automatically generated (or taken from the images\'s file if possible, if the image originated from a CompressedImageData).',
+                                    default = 'false',
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'debugname',
+                                    description = '',
+                                    default = 'nil',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'canvas',
+                                    description = '',
+                                    default = 'false',
+                                },
+                            },
+                            default = 'nil',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'Texture',
+                            name = 'texture',
+                            description = '2D texture',
                         },
                     },
                 },
@@ -3130,7 +3678,7 @@ return {
                     },
                     returns = {
                         {
-                            type = 'Image',
+                            type = 'Texture',
                             name = 'image',
                             description = 'A volume Image object.',
                         },
@@ -4097,6 +4645,158 @@ return {
             },
         },
         {
+            name = 'readbackTexture',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'Texture',
+                            name = 'texture',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'slice',
+                            description = '',
+                            default = 'nil',
+                        },
+                        {
+                            type = 'number',
+                            name = 'mipmap',
+                            description = '',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'w',
+                            description = '',
+                            default = 'Texture:getPixelWidth()',
+                        },
+                        {
+                            type = 'number',
+                            name = 'h',
+                            description = '',
+                            default = 'Texture:getPixelHeight()',
+                        },
+                        {
+                            type = 'ImageData',
+                            name = 'dest',
+                            description = '',
+                            default = 'nil',
+                        },
+                        {
+                            type = 'number',
+                            name = 'destx',
+                            description = '',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'desty',
+                            description = '',
+                            default = '0',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'ImageData',
+                            name = 'imagedata',
+                            description = '',
+                        },
+                    }
+                },
+            },
+        },
+        {
+            name = 'readbackTextureAsync',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'Texture',
+                            name = 'texture',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'slice',
+                            description = '',
+                            default = 'nil',
+                        },
+                        {
+                            type = 'number',
+                            name = 'mipmap',
+                            description = '',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'w',
+                            description = '',
+                            default = 'Texture:getPixelWidth()',
+                        },
+                        {
+                            type = 'number',
+                            name = 'h',
+                            description = '',
+                            default = 'Texture:getPixelHeight()',
+                        },
+                        {
+                            type = 'ImageData',
+                            name = 'dest',
+                            description = '',
+                            default = 'nil',
+                        },
+                        {
+                            type = 'number',
+                            name = 'destx',
+                            description = '',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'desty',
+                            description = '',
+                            default = '0',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'GraphicsReadback',
+                            name = 'graphicsReadback',
+                            description = '',
+                        },
+                    }
+                },
+            },
+        },
+        {
             name = 'rectangle',
             description = 'Draws a rectangle.',
             variants = {
@@ -4191,11 +4891,75 @@ return {
                         },
                     },
                 },
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The position of the new Transform on the x-axis.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The position of the new Transform on the y-axis.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'angle',
+                            description = 'The orientation of the new Transform in radians.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'sx',
+                            description = 'Scale factor on the x-axis.',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'sy',
+                            description = 'Scale factor on the y-axis.',
+                            default = 'sx',
+                        },
+                        {
+                            type = 'number',
+                            name = 'ox',
+                            description = 'Origin offset on the x-axis.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'oy',
+                            description = 'Origin offset on the y-axis.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'kx',
+                            description = 'Shearing / skew factor on the x-axis.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'ky',
+                            description = 'Shearing / skew factor on the y-axis.',
+                            default = '0',
+                        },
+                    }
+                },
             },
         },
         {
             name = 'reset',
             description = 'Resets the current graphics settings.\n\nCalling reset makes the current drawing color white, the current background color black, disables any active color component masks, disables wireframe mode and resets the current graphics transformation to the origin. It also sets both the point and line drawing modes to smooth and their sizes to 1.0.',
+            variants = {
+                {
+                },
+            },
+        },
+        {
+            name = 'resetProjection',
+            description = '',
             variants = {
                 {
                 },
@@ -4309,6 +5073,68 @@ return {
             },
         },
         {
+            name = 'setBlendState',
+            description = 'Sets the low-level blending state. love.graphics.setBlendMode is a simpler function for setting a higher level blending mode.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'BlendOperation',
+                            name = 'operation',
+                            description = 'The blend operation to use for RGB and alpha.',
+                        },
+                        {
+                            type = 'BlendFactor',
+                            name = 'srcFactor',
+                            description = 'The blend factor to use for source RGB and source alpha.',
+                        },
+                        {
+                            type = 'BlendFactor',
+                            name = 'dstFactor',
+                            description = 'The blend factor to use for destination RGB and destination alpha.',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'BlendOperation',
+                            name = 'operationRGB',
+                            description = 'The blend operation to use for RGB.',
+                        },
+                        {
+                            type = 'BlendOperation',
+                            name = 'operationA',
+                            description = 'The blend operation to use for alpha.',
+                        },
+                        {
+                            type = 'BlendFactor',
+                            name = 'srcFactorRGB',
+                            description = 'The blend factor to use for source RGB.',
+                        },
+                        {
+                            type = 'BlendFactor',
+                            name = 'srcFactorA',
+                            description = 'The blend factor to use for source alpha.',
+                        },
+                        {
+                            type = 'BlendFactor',
+                            name = 'dstFactorRGB',
+                            description = 'The blend factor to use for destination RGB.',
+                        },
+                        {
+                            type = 'BlendFactor',
+                            name = 'dstFactorA',
+                            description = 'The blend factor to use for destination alpha.',
+                        },
+                    },
+                },
+                {
+                    description = 'Disables all blending.',
+                },
+            },
+        },
+        {
             name = 'setCanvas',
             description = 'Captures drawing operations to a Canvas.',
             variants = {
@@ -4316,7 +5142,7 @@ return {
                     description = 'Sets the render target to a specified stencil or depth testing with an active Canvas, the stencil buffer or depth buffer must be explicitly enabled in setCanvas via the variants below.\n\nNote that no canvas should be active when \'\'love.graphics.present\'\' is called. \'\'love.graphics.present\'\' is called at the end of love.draw in the default love.run, hence if you activate a canvas using this function, you normally need to deactivate it at some point before \'\'love.draw\'\' finishes.',
                     arguments = {
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas',
                             description = 'The new target.',
                         },
@@ -4335,17 +5161,17 @@ return {
                     description = 'Sets the render target to multiple simultaneous 2D Canvases. All drawing operations until the next \'\'love.graphics.setCanvas\'\' call will be redirected to the specified canvases and not shown on the screen.\n\nNormally all drawing operations will draw only to the first canvas passed to the function, but that can be changed if a pixel shader is used with the void effect function instead of the regular vec4 effect.\n\nAll canvas arguments must have the same widths and heights and the same texture type. Not all computers which support Canvases will support multiple render targets. If love.graphics.isSupported(\'multicanvas\') returns true, at least 4 simultaneously active canvases are supported.',
                     arguments = {
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas1',
                             description = 'The first render target.',
                         },
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas2',
                             description = 'The second render target.',
                         },
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = '...',
                             description = 'More canvases.',
                         },
@@ -4355,7 +5181,7 @@ return {
                     description = 'Sets the render target to the specified layer/slice and mipmap level of the given non-2D Canvas. All drawing operations until the next \'\'love.graphics.setCanvas\'\' call will be redirected to the Canvas and not shown on the screen.',
                     arguments = {
                         {
-                            type = 'Canvas',
+                            type = 'Texture',
                             name = 'canvas',
                             description = 'The new render target.',
                         },
@@ -4638,6 +5464,7 @@ return {
         {
             name = 'setNewFont',
             description = 'Creates and sets a new Font.',
+            -- deprecated = true,
             variants = {
                 {
                     arguments = {
@@ -4756,6 +5583,50 @@ return {
             },
         },
         {
+            name = 'setProjection',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'Transform',
+                            name = 'transform',
+                            description = '',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'MatrixLayout',
+                            name = 'matrixlayout',
+                            description = 'The layout (row- or column-major) of the matrix.',
+                        },
+                        {
+                            type = 'table',
+                            name = 'matrix',
+                            description = 'table with 16 numbers',
+                            -- arraytype = 'number',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'MatrixLayout',
+                            name = 'matrixlayout',
+                            description = 'The layout (row- or column-major) of the matrix.',
+                        },
+                        {
+                            type = 'number',
+                            name = '...',
+                            description = '16 numbers',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'setScissor',
             description = 'Sets or disables scissor.\n\nThe scissor limits the drawing area to a specified rectangle. This affects all graphics calls, including love.graphics.clear. \n\nThe dimensions of the scissor is unaffected by graphical transformations (translate, scale, ...).',
             variants = {
@@ -4809,8 +5680,74 @@ return {
             },
         },
         {
+            name = 'setStencilMode',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'StencilMode',
+                            name = 'mode',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'value',
+                            description = '',
+                            default = '1',
+                        },
+                    },
+                },
+                {
+                    description = 'Disables writing to the stencil buffer and using its values, for subsequent draws.',
+                },
+            },
+        },
+        {
+            name = 'setStencilState',
+            description = 'Low-level function to configure the screen\'s per-pixel stencil buffer. For a simpler API see love.graphics.setStencilMode.\n\nThe geometry drawn after configuring the stencil state can set invisible stencil values of pixels, in addition to affecting pixel colors.\nThe stencil buffer (which contains those stencil values) can act like a mask / stencil - this function can be used to determine how further rendering is affected by the stencil values in each pixel, via the comparemode parameter.\n\nNote that unlike love.graphics.setStencilMode this function does not prevent subsequent draws from affecting pixel colors, unless love.graphics.setColorMask is used.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'StencilAction',
+                            name = 'action',
+                            description = 'Whether and how to modify any stencil values of pixels that are touched by subsequent draws.',
+                        },
+                        {
+                            type = 'CompareMode',
+                            name = 'comparemode',
+                            description = 'The type of comparison (if any) to make for each pixel.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'value',
+                            description = 'The value to use when comparing with the stencil value of each pixel, and the new stencil value to use for pixels if the "replace" stencil action is used. Must be an integer between 0 and 255.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'readmask',
+                            description = 'An 8 bit mask applied to values read from the stencil buffer in subsequent draws.',
+                            default = '255',
+                        },
+                        {
+                            type = 'number',
+                            name = 'writemask',
+                            description = 'An 8 bit mask applied to values written to the stencil buffer in subsequent draws.',
+                            default = '255',
+                        },
+                    },
+                },
+                {
+                    description = 'Disables writing to the stencil buffer and using its values, for subsequent draws.',
+                },
+            },
+        },
+        {
             name = 'setStencilTest',
             description = 'Configures or disables stencil testing.\n\nWhen stencil testing is enabled, the geometry of everything that is drawn afterward will be clipped / stencilled out based on a comparison between the arguments of this function and the stencil value of each pixel that the geometry touches. The stencil values of pixels are affected via love.graphics.stencil.',
+            -- deprecated = 'replaced by love.graphics.setStencilMode or love.graphics.setStencilState',
             variants = {
                 {
                     arguments = {
@@ -4869,6 +5806,7 @@ return {
         {
             name = 'stencil',
             description = 'Draws geometry as a stencil.\n\nThe geometry drawn by the supplied function sets invisible stencil values of pixels, instead of setting pixel colors. The stencil buffer (which contains those stencil values) can act like a mask / stencil - love.graphics.setStencilTest can be used afterward to determine how further rendering is affected by the stencil values in each pixel.\n\nStencil values are integers within the range of 255.',
+            -- deprecated = 'replaced by love.graphics.setStencilMode or love.graphics.setStencilState',
             variants = {
                 {
                     description = 'It is possible to draw to the screen and to the stencil values of pixels at the same time, by using love.graphics.setColorMask inside the stencil function to enable drawing to all color components.',
@@ -5021,7 +5959,11 @@ return {
         (require(path .. 'enums.ArcType')),
         (require(path .. 'enums.AreaSpreadDistribution')),
         (require(path .. 'enums.BlendAlphaMode')),
+        (require(path .. 'enums.BlendFactor')),
         (require(path .. 'enums.BlendMode')),
+        (require(path .. 'enums.BlendOperation')),
+        (require(path .. 'enums.BufferDataFormat')),
+        (require(path .. 'enums.BufferDataUsage')),
         (require(path .. 'enums.CompareMode')),
         (require(path .. 'enums.CullMode')),
         (require(path .. 'enums.DrawMode')),
@@ -5034,9 +5976,9 @@ return {
         (require(path .. 'enums.MeshDrawMode')),
         (require(path .. 'enums.MipmapMode')),
         (require(path .. 'enums.ParticleInsertMode')),
-        (require(path .. 'enums.SpriteBatchUsage')),
         (require(path .. 'enums.StackType')),
         (require(path .. 'enums.StencilAction')),
+        (require(path .. 'enums.StencilMode')),
         (require(path .. 'enums.TextureType')),
         (require(path .. 'enums.VertexAttributeStep')),
         (require(path .. 'enums.VertexWinding')),

@@ -12,6 +12,21 @@ return {
     },
     functions = {
         {
+            name = 'getDebugName',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'string',
+                            name = 'debugname',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getWarnings',
             description = 'Returns any warning and error messages from compiling the shader code. This can be used for debugging your shaders if there\'s anything the graphics hardware doesn\'t like.',
             variants = {

@@ -2,12 +2,25 @@ local path = (...):match('(.-)[^%./]+$')
 
 return {
     name = 'Texture',
-    description = 'Superclass for drawable objects which represent a texture. All Textures can be drawn with Quads. This is an abstract type that can\'t be created directly.',
+    description = 'Superclass for drawable objects which represent a texture. All Textures can be drawn with Quads.',
+    constructors = {
+        'newCanvas',
+        'newImage',
+        'newTexture',
+    },
     supertypes = {
         'Drawable',
         'Object',
     },
     functions = {
+        {
+            name = 'generateMipmaps',
+            description = 'Generates mipmaps for the Canvas, based on the contents of the highest-resolution mipmap level.\n\nThe Canvas must be created with mipmaps set to a MipmapMode other than \'none\' for this function to work. It should only be called while the Canvas is not the active render target.\n\nIf the mipmap mode is set to \'auto\', this function is automatically called inside love.graphics.setCanvas when switching from this Canvas to another Canvas or to the main screen.',
+            variants = {
+                {
+                },
+            },
+        },
         {
             name = 'getDPIScale',
             description = 'Gets the DPI scale factor of the Texture.\n\nThe DPI scale factor represents relative pixel density. A DPI scale factor of 2 means the texture has twice the pixel density in each dimension (4 times as many pixels in the same area) compared to a texture with a DPI scale factor of 1.\n\nFor example, a texture with pixel dimensions of 100x100 with a DPI scale factor of 2 will be drawn as if it was 50x50. This is useful with high-dpi /  retina displays to easily allow swapping out higher or lower pixel density Images and Canvases without needing any extra manual scaling logic.',
@@ -18,6 +31,21 @@ return {
                             type = 'number',
                             name = 'dpiscale',
                             description = 'The DPI scale factor of the Texture.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'getDebugName',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'string',
+                            name = 'debugname',
+                            description = '',
                         },
                     },
                 },
@@ -145,6 +173,21 @@ return {
             },
         },
         {
+            name = 'getMSAA',
+            description = 'Gets the number of multisample antialiasing (MSAA) samples used when drawing to the Canvas.\n\nThis may be different than the number used as an argument to love.graphics.newCanvas if the system running LÖVE doesn\'t support that number.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'samples',
+                            description = 'The number of multisample antialiasing samples used by the canvas when drawing to it.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getMipmapCount',
             description = 'Gets the number of mipmaps contained in the Texture. If the texture was not created with mipmaps, it will return 1.',
             variants = {
@@ -174,6 +217,21 @@ return {
                             type = 'number',
                             name = 'sharpness',
                             description = 'Value used to determine whether the image should use more or less detailed mipmap levels than normal when drawing.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'getMipmapMode',
+            description = 'Gets the MipmapMode this Canvas was created with.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'MipmapMode',
+                            name = 'mode',
+                            description = 'The mipmap mode this Canvas was created with.',
                         },
                     },
                 },
@@ -285,6 +343,92 @@ return {
             },
         },
         {
+            name = 'getViewFormats',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'table',
+                            name = 'viewFormats',
+                            description = '',
+                            -- arraytype = 'PixelFormat',
+                        },
+                        {
+                            type = 'WrapMode',
+                            name = 'vert',
+                            description = 'Vertical wrapping mode of the texture.',
+                        },
+                        {
+                            type = 'WrapMode',
+                            name = 'depth',
+                            description = 'Wrapping mode for the z-axis of a Volume texture.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'isCanvas',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'canvas',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'isCompressed',
+            description = 'Gets whether the Texture was created from CompressedData.\n\nCompressed images take up less space in VRAM, and drawing a compressed image will generally be more efficient than drawing one created from raw pixel data.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'compressed',
+                            description = 'Whether the Image is stored as a compressed texture on the GPU.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'isComputeWritable',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'computeWritable',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'isFormatLinear',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'boolean',
+                            name = 'linear',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'isReadable',
             description = 'Gets whether the Texture can be drawn and sent to a Shader.\n\nCanvases created with stencil and/or depth PixelFormats are not readable by default, unless readable=true is specified in the settings table passed into love.graphics.newCanvas.\n\nNon-readable Canvases can still be rendered to.',
             variants = {
@@ -294,6 +438,122 @@ return {
                             type = 'boolean',
                             name = 'readable',
                             description = 'Whether the Texture is readable.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'newImageData',
+            description = 'Generates ImageData from the contents of the Canvas.',
+            -- deprecated = 'replaced by love.graphics.readbackTexture',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'ImageData',
+                            name = 'data',
+                            description = 'The new ImageData made from the Canvas\' contents.',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'slice',
+                            description = 'The cubemap face index, array index, or depth layer for cubemap, array, or volume type Canvases, respectively. This argument is ignored for regular 2D canvases.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'mipmap',
+                            description = 'The mipmap index to use, for Canvases with mipmaps.',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The x-axis of the top-left corner (in pixels) of the area within the Canvas to capture.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The y-axis of the top-left corner (in pixels) of the area within the Canvas to capture.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'width',
+                            description = 'The width in pixels of the area within the Canvas to capture.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'height',
+                            description = 'The height in pixels of the area within the Canvas to capture.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'ImageData',
+                            name = 'data',
+                            description = 'The new ImageData made from the Canvas\' contents.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'renderTo',
+            description = 'Render to the Canvas using a function.\n\nThis is a shortcut to love.graphics.setCanvas:\n\ncanvas:renderTo( func )\n\nis the same as\n\nlove.graphics.setCanvas( canvas )\n\nfunc()\n\nlove.graphics.setCanvas()',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'function',
+                            name = 'func',
+                            description = 'A function performing drawing operations.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'replacePixels',
+            description = 'Replace the contents of an Image.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'ImageData',
+                            name = 'data',
+                            description = 'The new ImageData to replace the contents with.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'slice',
+                            description = 'Which cubemap face, array index, or volume layer to replace, if applicable.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'mipmap',
+                            description = 'The mimap level to replace, if the Image has mipmaps.',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The x-offset in pixels from the top-left of the image to replace. The given ImageData\'s width plus this value must not be greater than the pixel width of the Image\'s specified mipmap level.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The y-offset in pixels from the top-left of the image to replace. The given ImageData\'s height plus this value must not be greater than the pixel height of the Image\'s specified mipmap level.',
+                            default = '0',
+                        },
+                        {
+                            type = 'boolean',
+                            name = 'reloadmipmaps',
+                            description = 'Whether to generate new mipmaps after replacing the Image\'s pixels. True by default if the Image was created with automatically generated mipmaps, false by default otherwise.',
                         },
                     },
                 },

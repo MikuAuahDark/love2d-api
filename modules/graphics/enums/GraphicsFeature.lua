@@ -34,5 +34,41 @@ return {
             name = 'shaderderivatives',
             description = 'Whether shaders can use the dFdx, dFdy, and fwidth functions for computing derivatives.',
         },
+        {
+            name = 'clampone',
+            description = '',
+        },
+        {
+            name = 'texelbuffer',
+            description = '',
+        },
+        {
+            name = 'indexbuffer32bit',
+            description = '',
+        },
+        {
+            name = 'mipmaprange',
+            description = '',
+        },
+        {
+            name = 'indirectdraw',
+            description = '',
+        },
+        {
+            name = 'copybuffer',
+            description = '',
+        },
+        {
+            name = 'copybuffertotexture',
+            description = '',
+        },
+        {
+            name = 'copytexturetobuffer',
+            description = '',
+        },
+        {
+            name = 'copyrendertargettobuffer',
+            description = '',
+        },
     },
 }

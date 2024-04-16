@@ -1,10 +1,9 @@
-local path = (...):match('(.-)[^%./]+$')
-
 return {
-    name = 'Text',
+    name = 'TextBatch',
     description = 'Drawable text.',
     constructors = {
         'newText',
+        'newTextBatch',
     },
     supertypes = {
         'Drawable',
