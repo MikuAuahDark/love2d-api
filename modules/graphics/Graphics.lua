@@ -409,6 +409,38 @@ return {
             },
         },
         {
+            name = 'dispatchThreadgroups',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'Shader',
+                            name = 'computeshader',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'z',
+                            description = '',
+                            default = '1',
+                        },
+                    }
+                }
+            }
+        },
+        {
             name = 'draw',
             description = 'Draws a Drawable object (an Image, Canvas, SpriteBatch, ParticleSystem, Mesh, Text object, or Video) on the screen with optional rotation, scaling and shearing.\n\nObjects are drawn relative to their local coordinate system. The origin is by default located at the top left corner of Image and Canvas. All scaling, shearing, and rotation arguments transform the object relative to that point. Also, the position of the origin can be specified on the screen coordinate system.\n\nIt\'s possible to rotate an object about its center by offsetting the origin to the center. Angles must be given in radians for rotation. One can also use a negative scaling factor to flip about its centerline. \n\nNote that the offsets are applied before rotation, scaling, or shearing; scaling and shearing are applied before rotation.\n\nThe right and bottom edges of the object are shifted at an angle defined by the shearing factors.\n\nWhen using the default shader anything drawn with this function will be tinted according to the currently selected color.  Set it to pure white to preserve the object\'s original colors.',
             variants = {
@@ -1956,6 +1988,83 @@ return {
             },
         },
         {
+            name = 'newBuffer',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'table',
+                            name = 'format',
+                            description = '',
+                            table = {
+                                {
+                                    type = 'string',
+                                    name = 'name',
+                                    description = '',
+                                },
+                                {
+                                    type = 'BufferDataFormat',
+                                    name = 'format',
+                                    description = '',
+                                },
+                                array = true,
+                            },
+                        },
+                        {
+                            type = 'number',
+                            name = 'count',
+                            description = '',
+                        },
+                        {
+                            type = 'table',
+                            name = 'settings',
+                            description = '',
+                            table = {
+                                {
+                                    type = 'boolean',
+                                    name = 'vertex',
+                                    description = '',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'index',
+                                    description = '',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'texel',
+                                    description = '',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'shaderstorage',
+                                    description = '',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'indirectarguments',
+                                    description = '',
+                                },
+                                {
+                                    type = 'BufferDataUsage',
+                                    name = 'usage',
+                                    description = '',
+                                },
+                            },
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'GraphicsBuffer',
+                            name = 'buffer',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'newCanvas',
             description = 'Creates a new Texture object for offscreen rendering.',
             variants = {
@@ -2134,6 +2243,22 @@ return {
             name = 'newComputeShader',
             description = '',
             variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'code',
+                            description = '',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'Shader',
+                            name = 'shader',
+                            description = '',
+                        },
+                    },
+                },
                 {
                     arguments = {
                         {
@@ -2655,6 +2780,7 @@ return {
                                     description = 'The alpha component of the vertex color.',
                                     default = '1',
                                 },
+                                array = true,
                             },
                         },
                         {
@@ -4642,6 +4768,52 @@ return {
                         },
                     },
                 },
+            },
+        },
+        {
+            name = 'readbackBuffer',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'GraphicsBuffer',
+                            name = 'buffer',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'offset',
+                            description = '',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'size',
+                            description = '',
+                            default = 'GraphicsBuffer:getSize()',
+                        },
+                        {
+                            type = 'ByteData',
+                            name = 'dest',
+                            description = '',
+                            default = 'nil',
+                        },
+                        {
+                            type = 'ByteData',
+                            name = 'destoffset',
+                            description = '',
+                            default = '0',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'ByteData',
+                            name = 'byteData',
+                            description = '',
+                        }
+                    }
+                }
             },
         },
         {

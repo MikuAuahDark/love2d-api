@@ -27,6 +27,31 @@ return {
             },
         },
         {
+            name = 'getLocalThreadgroupSize',
+            description = '',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'z',
+                            description = '',
+                        },
+                    }
+                }
+            }
+        },
+        {
             name = 'getWarnings',
             description = 'Returns any warning and error messages from compiling the shader code. This can be used for debugging your shaders if there\'s anything the graphics hardware doesn\'t like.',
             variants = {

@@ -130,5 +130,65 @@ return {
                 },
             },
         },
+        {
+            name = 'setArrayData',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'table',
+                            name = 'data',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'sourceindex',
+                            description = '',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'destindex',
+                            description = '',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'count',
+                            description = '',
+                            default = 'nil',
+                        },
+                    },
+                },
+                {
+                    arguments = {
+                        {
+                            type = 'Data',
+                            name = 'data',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'sourceindex',
+                            description = '',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'destindex',
+                            description = '',
+                            default = '1',
+                        },
+                        {
+                            type = 'number',
+                            name = 'count',
+                            description = '',
+                            default = 'nil',
+                        },
+                    },
+                },
+            }
+        },
     },
 }
