@@ -444,64 +444,6 @@ return {
             },
         },
         {
-            name = 'newImageData',
-            description = 'Generates ImageData from the contents of the Canvas.',
-            -- deprecated = 'replaced by love.graphics.readbackTexture',
-            variants = {
-                {
-                    returns = {
-                        {
-                            type = 'ImageData',
-                            name = 'data',
-                            description = 'The new ImageData made from the Canvas\' contents.',
-                        },
-                    },
-                },
-                {
-                    arguments = {
-                        {
-                            type = 'number',
-                            name = 'slice',
-                            description = 'The cubemap face index, array index, or depth layer for cubemap, array, or volume type Canvases, respectively. This argument is ignored for regular 2D canvases.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'mipmap',
-                            description = 'The mipmap index to use, for Canvases with mipmaps.',
-                            default = '1',
-                        },
-                        {
-                            type = 'number',
-                            name = 'x',
-                            description = 'The x-axis of the top-left corner (in pixels) of the area within the Canvas to capture.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'y',
-                            description = 'The y-axis of the top-left corner (in pixels) of the area within the Canvas to capture.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'width',
-                            description = 'The width in pixels of the area within the Canvas to capture.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'height',
-                            description = 'The height in pixels of the area within the Canvas to capture.',
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'ImageData',
-                            name = 'data',
-                            description = 'The new ImageData made from the Canvas\' contents.',
-                        },
-                    },
-                },
-            },
-        },
-        {
             name = 'renderTo',
             description = 'Render to the Canvas using a function.\n\nThis is a shortcut to love.graphics.setCanvas:\n\ncanvas:renderTo( func )\n\nis the same as\n\nlove.graphics.setCanvas( canvas )\n\nfunc()\n\nlove.graphics.setCanvas()',
             variants = {

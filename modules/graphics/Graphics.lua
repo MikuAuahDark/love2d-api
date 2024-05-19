@@ -1038,39 +1038,6 @@ return {
             },
         },
         {
-            name = 'getCanvasFormats',
-            description = 'Gets the available Canvas formats, and whether each is supported.',
-            -- deprecated = 'replaced by love.graphics.getTextureFormats',
-            variants = {
-                {
-                    returns = {
-                        {
-                            type = 'table',
-                            name = 'formats',
-                            description = 'A table containing CanvasFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.',
-                        },
-                    },
-                },
-                {
-                    arguments = {
-                        {
-                            type = 'boolean',
-                            name = 'readable',
-                            description = 'If true, the returned formats will only be indicated as supported if readable flag set to true for that format, and vice versa if the parameter is false.',
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'table',
-                            name = 'formats',
-                            description = 'A table containing CanvasFormats as keys, and a boolean indicating whether the format is supported as values (taking into account the readable parameter). Not all systems support all formats.',
-                            -- tabletype = {'PixelFormat', 'boolean'},
-                        },
-                    },
-                },
-            },
-        },
-        {
             name = 'getColor',
             description = 'Gets the current color.\n\nIn versions prior to 11.0, color component values were within the range of 0 to 255 instead of 0 to 1.',
             variants = {
@@ -1251,23 +1218,6 @@ return {
                             type = 'number',
                             name = 'height',
                             description = 'The height of the window.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'getImageFormats',
-            description = 'Gets the raw and compressed pixel formats usable for Images, and whether each is supported.',
-            -- deprecated = 'replaced by love.graphics.getTextureFormats',
-            variants = {
-                {
-                    returns = {
-                        {
-                            type = 'table',
-                            name = 'formats',
-                            description = 'A table containing PixelFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.',
-                            -- tabletype = {'PixelFormat', 'boolean'},
                         },
                     },
                 },
@@ -1655,27 +1605,6 @@ return {
                             type = 'number',
                             name = 'writemask',
                             description = 'An 8 bit mask applied to values written to the stencil buffer in subsequent draws.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'getStencilTest',
-            description = 'Gets the current stencil test configuration.\n\nWhen stencil testing is enabled, the geometry of everything that is drawn afterward will be clipped / stencilled out based on a comparison between the arguments of this function and the stencil value of each pixel that the geometry touches. The stencil values of pixels are affected via love.graphics.stencil.\n\nEach Canvas has its own per-pixel stencil values.',
-            -- deprecated = 'replaced by love.graphics.getStencilMode or love.graphics.getStencilState',
-            variants = {
-                {
-                    returns = {
-                        {
-                            type = 'CompareMode',
-                            name = 'comparemode',
-                            description = 'The type of comparison that is made for each pixel. Will be \'always\' if stencil testing is disabled.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'comparevalue',
-                            description = 'The value used when comparing with the stencil value of each pixel.',
                         },
                     },
                 },
@@ -3234,83 +3163,6 @@ return {
                             type = 'SpriteBatch',
                             name = 'spriteBatch',
                             description = 'The new SpriteBatch.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'newText',
-            description = 'Creates a new drawable Text object.',
-            -- deprecated = 'renamed to love.graphics.newTextBatch',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'Font',
-                            name = 'font',
-                            description = 'The font to use for the text.',
-                        },
-                        {
-                            type = 'string',
-                            name = 'textstring',
-                            description = 'The initial string of text that the new Text object will contain. May be nil.',
-                            default = 'nil',
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'TextBatch',
-                            name = 'text',
-                            description = 'The new drawable Text object.',
-                        },
-                    },
-                },
-                {
-                    arguments = {
-                        {
-                            type = 'Font',
-                            name = 'font',
-                            description = 'The font to use for the text.',
-                        },
-                        {
-                            type = 'table',
-                            name = 'coloredtext',
-                            description = 'A table containing colors and strings to add to the object, in the form of {color1, string1, color2, string2, ...}.',
-                            table = {
-                                {
-                                    type = 'table',
-                                    name = 'color1',
-                                    description = 'A table containing red, green, blue, and optional alpha components to use as a color for the next string in the table, in the form of {red, green, blue, alpha}.'
-                                },
-                                {
-                                    type = 'string',
-                                    name = 'string1',
-                                    description = 'A string of text which has a color specified by the previous color.',
-                                },
-                                {
-                                    type = 'table',
-                                    name = 'color2',
-                                    description = 'A table containing red, green, blue, and optional alpha components to use as a color for the next string in the table, in the form of {red, green, blue, alpha}.',
-                                },
-                                {
-                                    type = 'string',
-                                    name = 'string2',
-                                    description = 'A string of text which has a color specified by the previous color.',
-                                },
-                                {
-                                    type = 'Variant',
-                                    name = '...',
-                                    description = 'Additional colors and strings.',
-                                },
-                            },
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'TextBatch',
-                            name = 'text',
-                            description = 'The new drawable Text object.',
                         },
                     },
                 },
@@ -5634,112 +5486,6 @@ return {
             },
         },
         {
-            name = 'setNewFont',
-            description = 'Creates and sets a new Font.',
-            -- deprecated = true,
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'number',
-                            name = 'size',
-                            description = 'The size of the font.',
-                            default = '12',
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'Font',
-                            name = 'font',
-                            description = 'The new font.',
-                        },
-                    },
-                },
-                {
-                    arguments = {
-                        {
-                            type = 'string',
-                            name = 'filename',
-                            description = 'The path and name of the file with the font.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'size',
-                            description = 'The size of the font.',
-                            default = '12',
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'Font',
-                            name = 'font',
-                            description = 'The new font.',
-                        },
-                    },
-                },
-                {
-                    arguments = {
-                        {
-                            type = 'File',
-                            name = 'file',
-                            description = 'A File with the font.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'size',
-                            description = 'The size of the font.',
-                            default = '12',
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'Font',
-                            name = 'font',
-                            description = 'The new font.',
-                        },
-                    },
-                },
-                {
-                    arguments = {
-                        {
-                            type = 'Data',
-                            name = 'data',
-                            description = 'A Data with the font.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'size',
-                            description = 'The size of the font.',
-                            default = '12',
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'Font',
-                            name = 'font',
-                            description = 'The new font.',
-                        },
-                    },
-                },
-                {
-                    arguments = {
-                        {
-                            type = 'Rasterizer',
-                            name = 'rasterizer',
-                            description = 'A rasterizer.',
-                        },
-                    },
-                    returns = {
-                        {
-                            type = 'Font',
-                            name = 'font',
-                            description = 'The new font.',
-                        },
-                    },
-                },
-            },
-        },
-        {
             name = 'setPointSize',
             description = 'Sets the point size.',
             variants = {
@@ -5917,30 +5663,6 @@ return {
             },
         },
         {
-            name = 'setStencilTest',
-            description = 'Configures or disables stencil testing.\n\nWhen stencil testing is enabled, the geometry of everything that is drawn afterward will be clipped / stencilled out based on a comparison between the arguments of this function and the stencil value of each pixel that the geometry touches. The stencil values of pixels are affected via love.graphics.stencil.',
-            -- deprecated = 'replaced by love.graphics.setStencilMode or love.graphics.setStencilState',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'CompareMode',
-                            name = 'comparemode',
-                            description = 'The type of comparison to make for each pixel.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'comparevalue',
-                            description = 'The value to use when comparing with the stencil value of each pixel. Must be between 0 and 255.',
-                        },
-                    },
-                },
-                {
-                    description = 'Disables stencil testing.',
-                },
-            },
-        },
-        {
             name = 'setWireframe',
             description = 'Sets whether wireframe lines will be used when drawing.',
             variants = {
@@ -5970,41 +5692,6 @@ return {
                             type = 'number',
                             name = 'ky',
                             description = 'The shear factor on the y-axis.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'stencil',
-            description = 'Draws geometry as a stencil.\n\nThe geometry drawn by the supplied function sets invisible stencil values of pixels, instead of setting pixel colors. The stencil buffer (which contains those stencil values) can act like a mask / stencil - love.graphics.setStencilTest can be used afterward to determine how further rendering is affected by the stencil values in each pixel.\n\nStencil values are integers within the range of 255.',
-            -- deprecated = 'replaced by love.graphics.setStencilMode or love.graphics.setStencilState',
-            variants = {
-                {
-                    description = 'It is possible to draw to the screen and to the stencil values of pixels at the same time, by using love.graphics.setColorMask inside the stencil function to enable drawing to all color components.',
-                    arguments = {
-                        {
-                            type = 'function',
-                            name = 'stencilfunction',
-                            description = 'Function which draws geometry. The stencil values of pixels, rather than the color of each pixel, will be affected by the geometry.',
-                        },
-                        {
-                            type = 'StencilAction',
-                            name = 'action',
-                            description = 'How to modify any stencil values of pixels that are touched by what\'s drawn in the stencil function.',
-                            default = '\'replace\'',
-                        },
-                        {
-                            type = 'number',
-                            name = 'value',
-                            description = 'The new stencil value to use for pixels if the \'replace\' stencil action is used. Has no effect with other stencil actions. Must be between 0 and 255.',
-                            default = '1',
-                        },
-                        {
-                            type = 'boolean',
-                            name = 'keepvalues',
-                            description = 'True to preserve old stencil values of pixels, false to re-set every pixel\'s stencil value to 0 before executing the stencil function. love.graphics.clear will also re-set all stencil values.',
-                            default = 'false',
                         },
                     },
                 },

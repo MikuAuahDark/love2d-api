@@ -626,9 +626,6 @@ return {
                         },
                     },
                 },
-                {
-                    description = 'Disables all per-sprite colors for this SpriteBatch.',
-                },
             },
         },
         {

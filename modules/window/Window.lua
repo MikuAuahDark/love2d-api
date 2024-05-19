@@ -7,14 +7,6 @@ return {
     },
     functions = {
         {
-            name = 'close',
-            description = 'Closes the window. It can be reopened with love.window.setMode.',
-            variants = {
-                {
-                },
-            },
-        },
-        {
             name = 'fromPixels',
             description = 'Converts a number from pixels to density-independent units.\n\nThe pixel density inside the window might be greater (or smaller) than the \'size\' of the window. For example on a retina screen in Mac OS X with the highdpi window flag enabled, the window may take up the same physical size as an 800x600 window, but the area inside the window uses 1600x1200 pixels. love.window.fromPixels(1600) would return 800 in that case.\n\nThis function converts coordinates from pixels to the size users are expecting them to display at onscreen. love.window.toPixels does the opposite. The highdpi window flag must be enabled to use the full pixel density of a Retina screen on Mac OS X and iOS. The flag currently does nothing on Windows and Linux, and on Android it is effectively always enabled.\n\nMost LÖVE functions return values and expect arguments in terms of pixels rather than density-independent units.',
             variants = {
