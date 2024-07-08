@@ -167,7 +167,7 @@ return {
                             type = 'table',
                             name = 'devices',
                             description = 'The list of connected playback device names as strings.',
-                            -- arraytype = 'string',
+                            arraytype = 'string',
                         },
                     },
                 },

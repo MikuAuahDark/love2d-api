@@ -160,7 +160,7 @@ return {
                             type = 'table',
                             name = 'sources',
                             description = 'List of sources that was playing.',
-                            -- arraytype = 'Source',
+                            arraytype = 'Source',
                         },
                     },
                     returns = {

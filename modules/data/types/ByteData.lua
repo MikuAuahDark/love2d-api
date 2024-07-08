@@ -38,7 +38,7 @@ return {
                             type = 'table',
                             name = 'values',
                             description = '',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         }
                     },
                 },
@@ -73,7 +73,7 @@ return {
                             type = 'table',
                             name = 'values',
                             description = '',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         }
                     },
                 },
@@ -108,7 +108,7 @@ return {
                             type = 'table',
                             name = 'values',
                             description = '',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         }
                     },
                 },
@@ -143,7 +143,7 @@ return {
                             type = 'table',
                             name = 'values',
                             description = '',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         }
                     },
                 },
@@ -178,7 +178,7 @@ return {
                             type = 'table',
                             name = 'values',
                             description = '',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         }
                     },
                 },
@@ -234,7 +234,7 @@ return {
                             type = 'table',
                             name = 'values',
                             description = '',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         }
                     },
                 },
@@ -269,7 +269,7 @@ return {
                             type = 'table',
                             name = 'values',
                             description = '',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         }
                     },
                 },
@@ -304,7 +304,7 @@ return {
                             type = 'table',
                             name = 'values',
                             description = '',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         }
                     },
                 },

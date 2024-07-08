@@ -352,7 +352,7 @@ return {
                             type = 'table',
                             name = 'viewFormats',
                             description = '',
-                            -- arraytype = 'PixelFormat',
+                            arraytype = 'PixelFormat',
                         },
                         {
                             type = 'WrapMode',

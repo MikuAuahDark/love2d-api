@@ -72,7 +72,7 @@ return {
                             type = 'table',
                             name = 'locales',
                             description = 'A sequence of strings in order of user\'s preference. Locales are in form xx_YY (or just xx when country is not available) where xx is an ISO-639 language specifier and YY (if available) is an ISO-3166 country code',
-                            -- arraytype = 'string',
+                            arraytype = 'string',
                         },
                     },
                 },

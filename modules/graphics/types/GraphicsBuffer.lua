@@ -87,7 +87,7 @@ return {
                             type = 'table',
                             name = 'format',
                             description = 'Array of table with these key-values',
-                            -- arraytype = 'table',
+                            arraytype = 'table',
                             table = {
                                 {
                                     type = 'string',

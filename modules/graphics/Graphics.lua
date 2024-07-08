@@ -3052,7 +3052,7 @@ return {
                             type = 'table',
                             name = 'defines',
                             description = '',
-                            -- tabletype = {'string', 'string'},
+                            tabletype = {'string', 'string'},
                         },
                     },
                     returns = {
@@ -5518,7 +5518,7 @@ return {
                             type = 'table',
                             name = 'matrix',
                             description = 'table with 16 numbers',
-                            -- arraytype = 'number',
+                            arraytype = 'number',
                         },
                     },
                 },
