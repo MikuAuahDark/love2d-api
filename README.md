@@ -34,7 +34,7 @@ Contributions are more than welcome!
 
 ```lua
 return {
-    version = '11.5',
+    version = '12.0',
     functions = { -- Functions not in modules, currently only love.getVersion
         -- See function structure below
     },

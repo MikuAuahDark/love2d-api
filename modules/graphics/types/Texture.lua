@@ -415,14 +415,14 @@ return {
         },
         {
             name = 'isFormatLinear',
-            description = '',
+            description = 'Gets whether the Texture was created with the linear (non-gamma corrected) flag set to true.\n\nThis method always returns false when gamma-correct rendering is not enabled.',
             variants = {
                 {
                     returns = {
                         {
                             type = 'boolean',
                             name = 'linear',
-                            description = '',
+                            description = 'Whether the Texture\'s internal pixel format is linear (not gamma corrected), when gamma-correct rendering is enabled.',
                         },
                     },
                 },
@@ -445,7 +445,7 @@ return {
         },
         {
             name = 'renderTo',
-            description = 'Render to the Canvas using a function.\n\nThis is a shortcut to love.graphics.setCanvas:\n\ncanvas:renderTo( func )\n\nis the same as\n\nlove.graphics.setCanvas( canvas )\n\nfunc()\n\nlove.graphics.setCanvas()',
+            description = 'Render to the Texture using a function.\n\nThis is a shortcut to love.graphics.setCanvas:\n\ntexture:renderTo( func )\n\nis the same as\n\nlove.graphics.setCanvas( texture )\n\nfunc()\n\nlove.graphics.setCanvas()',
             variants = {
                 {
                     arguments = {
@@ -453,6 +453,20 @@ return {
                             type = 'function',
                             name = 'func',
                             description = 'A function performing drawing operations.',
+                            signature = {
+                                arguments = {
+                                    {
+                                        type = 'any',
+                                        name = '...',
+                                        description = 'Additional arguments passed.'
+                                    },
+                                },
+                            },
+                        },
+                        {
+                            type = 'any',
+                            name = '...',
+                            description = 'Additional arguments to call the function with.',
                         },
                     },
                 },
