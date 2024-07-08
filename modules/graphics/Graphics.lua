@@ -183,6 +183,51 @@ return {
             },
         },
         {
+            name = 'captureScreenshot',
+            description = 'Creates a screenshot once the current frame is done (after love.draw has finished).\n\nSince this function enqueues a screenshot capture rather than executing it immediately, it can be called from an input callback or love.update and it will still capture all of what\'s drawn to the screen in that frame.',
+            variants = {
+                {
+                    description = 'Capture a screenshot and save it to a file at the end of the current frame.',
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'filename',
+                            description = 'The filename to save the screenshot to. The encoded image type is determined based on the extension of the filename, and must be one of the ImageFormats.',
+                        },
+                    },
+                },
+                {
+                    description = 'Capture a screenshot and call a callback with the generated ImageData at the end of the current frame.',
+                    arguments = {
+                        {
+                            type = 'function',
+                            name = 'callback',
+                            description = 'Function which gets called once the screenshot has been captured. An ImageData is passed into the function as its only argument.',
+                            signature = {
+                                arguments = {
+                                    {
+                                        type = 'ImageData',
+                                        name = 'imageData',
+                                        description = 'The resulting screenshot.',
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                {
+                    description = 'Capture a screenshot and push the generated ImageData to a Channel at the end of the current frame.',
+                    arguments = {
+                        {
+                            type = 'Channel',
+                            name = 'channel',
+                            description = 'The Channel to push the generated ImageData to.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'circle',
             description = 'Draws a circle.',
             variants = {
@@ -2205,6 +2250,8 @@ return {
                             type = 'table',
                             name = 'defines',
                             description = '',
+                            default = 'nil',
+                            tabletype = {'string', 'string'},
                         },
                     },
                     returns = {
@@ -3052,6 +3099,7 @@ return {
                             type = 'table',
                             name = 'defines',
                             description = '',
+                            default = 'nil',
                             tabletype = {'string', 'string'},
                         },
                     },
@@ -3079,6 +3127,8 @@ return {
                             type = 'table',
                             name = 'defines',
                             description = '',
+                            default = 'nil',
+                            tabletype = {'string', 'string'},
                         },
                     },
                     returns = {
