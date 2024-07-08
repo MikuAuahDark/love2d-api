@@ -370,14 +370,14 @@ return {
         },
         {
             name = 'isCanvas',
-            description = '',
+            description = 'Gets whether the Texture has been created with canvas capabilities via love.graphics.newCanvas or love.graphics.newTexture.',
             variants = {
                 {
                     returns = {
                         {
                             type = 'boolean',
                             name = 'canvas',
-                            description = '',
+                            description = 'True if the Texture can be rendered to with love.graphics.setCanvas, false otherwise.',
                         },
                     },
                 },

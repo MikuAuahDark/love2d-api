@@ -325,32 +325,47 @@ return {
             },
         },
         {
+            name = 'getPlayerIndex',
+            description = 'Gets the player index of this Joystick. This corresponds to an indicator light on many common gamepads.\n\nNote that this is independent from the array index of this Joystick in the table returned by love.joystick.getJoysticks.',
+            variants = {
+                {
+                    returns = {
+                        {
+                            type = 'number',
+                            name = 'index',
+                            description = 'The 1-based player index being used for this Joystick, or -1 if the player index has not been set or cannot be determined.',
+                        },
+                    },
+                }
+            }
+        },
+        {
             name = 'getSensorData',
-            description = '',
+            description = 'Gets the latest data for the given sensor type for this Joystick.\nThe returned values have meaning based on the sensor type, for example an accelerometer will return acceleration values along each axis.\n\nIf the sensor was not enabled via Joystick:setSensorEnabled, this function may cause an error.',
             variants = {
                 {
                     arguments = {
                         {
                             type = 'SensorType',
                             name = 'sensorType',
-                            description = '',
+                            description = 'The type of sensor.',
                         }
                     },
                     returns = {
                         {
                             type = 'number',
                             name = 'x',
-                            description = '',
+                            description = 'The sensor\'s current 1st value.',
                         },
                         {
                             type = 'number',
                             name = 'y',
-                            description = '',
+                            description = 'The sensor\'s current 2nd value.',
                         },
                         {
                             type = 'number',
                             name = 'z',
-                            description = '',
+                            description = 'The sensor\'s current 3rd value.',
                         },
                     },
                 }
@@ -475,21 +490,21 @@ return {
         },
         {
             name = 'isSensorEnabled',
-            description = '',
+            description = 'Gets whether the specified sensor is currently enabled on this Joystick.',
             variants = {
                 {
                     arguments = {
                         {
                             type = 'SensorType',
                             name = 'sensorType',
-                            description = '',
+                            description = 'Type of sensor to check.',
                         },
                     },
                     returns = {
                         {
                             type = 'boolean',
                             name = 'enabled',
-                            description = '',
+                            description = 'Whether the sensor is currently enabled.',
                         },
                     },
                 }
@@ -512,15 +527,35 @@ return {
             },
         },
         {
+            name = 'setPlayerIndex',
+            description = 'Sets the player index of this Joystick. This corresponds to an indicator light on many common gamepads.\n\nNote that this is independent from the array index of this Joystick in the table returned by love.joystick.getJoysticks.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'index',
+                            description = 'The 1-based player index to use for this Joystick.',
+                        },
+                    },
+                }
+            }
+        },
+        {
             name = 'setSensorEnabled',
-            description = '',
+            description = 'Enables or disables the specified sensor on this Joystick.\n\nThe given sensor type must exist on this Joystick, otherwise this function may cause an error.',
             variants = {
                 {
                     arguments = {
                         {
                             type = 'SensorType',
                             name = 'sensorType',
-                            description = '',
+                            description = 'Type of sensor to enable or disable.',
+                        },
+                        {
+                            type = 'boolean',
+                            name = 'enable',
+                            description = 'True to enable the given sensor, false to disable it.',
                         },
                     },
                 }

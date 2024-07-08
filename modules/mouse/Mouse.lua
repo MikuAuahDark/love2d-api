@@ -24,19 +24,24 @@ return {
         },
         {
             name = 'getGlobalPosition',
-            description = '',
+            description = 'Gets the global position of the mouse on the screen. This can be used when implementing custom drag areas in the window.\n\nThe global mouse position is in the same coordinate space as love.window.getPosition and love.window.setPosition.',
             variants = {
                 {
                     returns = {
                         {
                             type = 'number',
                             name = 'x',
-                            description = '',
+                            description = 'The x-coordinate of the mouse\'s global position, within its current display.',
                         },
                         {
                             type = 'number',
                             name = 'y',
-                            description = '',
+                            description = 'The y-coordinate of the mouse\'s global position, within its current display.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'displayindex',
+                            description = 'The index of the display that the mouse is in.',
                         },
                     },
                 },

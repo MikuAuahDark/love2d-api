@@ -183,51 +183,6 @@ return {
             },
         },
         {
-            name = 'captureScreenshot',
-            description = 'Creates a screenshot once the current frame is done (after love.draw has finished).\n\nSince this function enqueues a screenshot capture rather than executing it immediately, it can be called from an input callback or love.update and it will still capture all of what\'s drawn to the screen in that frame.',
-            variants = {
-                {
-                    description = 'Capture a screenshot and save it to a file at the end of the current frame.',
-                    arguments = {
-                        {
-                            type = 'string',
-                            name = 'filename',
-                            description = 'The filename to save the screenshot to. The encoded image type is determined based on the extension of the filename, and must be one of the ImageFormats.',
-                        },
-                    },
-                },
-                {
-                    description = 'Capture a screenshot and call a callback with the generated ImageData at the end of the current frame.',
-                    arguments = {
-                        {
-                            type = 'function',
-                            name = 'callback',
-                            description = 'Function which gets called once the screenshot has been captured. An ImageData is passed into the function as its only argument.',
-                            signature = {
-                                arguments = {
-                                    {
-                                        type = 'ImageData',
-                                        name = 'imageData',
-                                        description = 'The resulting screenshot.',
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-                {
-                    description = 'Capture a screenshot and push the generated ImageData to a Channel at the end of the current frame.',
-                    arguments = {
-                        {
-                            type = 'Channel',
-                            name = 'channel',
-                            description = 'The Channel to push the generated ImageData to.',
-                        },
-                    },
-                },
-            },
-        },
-        {
             name = 'circle',
             description = 'Draws a circle.',
             variants = {
@@ -377,6 +332,44 @@ return {
                             type = 'boolean',
                             name = 'cleardepth',
                             description = 'Whether to clear the active depth buffer, if present. It can also be a number between 0 and 1 to clear the depth buffer to a specific value.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'copyBuffer',
+            description = 'Copies the contents of one GraphicsBuffer to another.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'GraphicsBuffer',
+                            name = 'source',
+                            description = 'The GraphicsBuffer to copy data from.',
+                        },
+                        {
+                            type = 'GraphicsBuffer',
+                            name = 'dest',
+                            description = 'The GraphicsBuffer to copy data into.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'sourceoffset',
+                            description = 'The GraphicsBuffer to copy data into.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'destoffset',
+                            description = 'The GraphicsBuffer to copy data into.',
+                            default = '0',
+                        },
+                        {
+                            type = 'number',
+                            name = 'size',
+                            description = 'The GraphicsBuffer to copy data into.',
+                            default = 'all',
                         },
                     },
                 },
@@ -1656,31 +1649,31 @@ return {
         },
         {
             name = 'getTextureFormats',
-            description = '',
+            description = 'Gets the available pixel formats, and whether each is supported for the given Texture usage configuration.',
             variants = {
                 {
                     arguments = {
                         {
                             type = 'table',
-                            name = 'flags',
-                            description = '',
+                            name = 'usage',
+                            description = 'A table containing fields describing how the pixel formats will be used.',
                             table = {
                                 {
                                     type = 'boolean',
                                     name = 'canvas',
-                                    description = '',
-                                },
-                                {
-                                    type = 'boolean',
-                                    name = 'computewrite',
-                                    description = '',
-                                    default = 'false',
+                                    description = 'If true, the returned formats will only be listed as supported if they can be used with a canvas-capable Texture.',
                                 },
                                 {
                                     type = 'boolean',
                                     name = 'readable',
-                                    description = '',
+                                    description = 'If true, the returned formats will only be listed as supported if they can be used with the readable flag set to true for a Texture using that format, and vice versa if the field is false. When the field is nil, color pixel formats are assumed to be readable and depth/stencil formats are non-readable.',
                                     default = 'nil',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'computewrite',
+                                    description = 'If true, the returned formats will only be listed as supported if they can be used with the computewrite flag set to true for a Texture using that format.',
+                                    default = 'false',
                                 },
                             },
                         },
@@ -1689,7 +1682,7 @@ return {
                         {
                             type = 'table',
                             name = 'formats',
-                            description = 'A table containing PixelFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.',
+                            description = 'A table containing PixelFormats as keys, and a boolean indicating whether the format is supported for the given usage configuration as values. Not all systems support all formats.',
                             tabletype = {'PixelFormat', 'boolean'},
                         },
                     },
@@ -4669,67 +4662,67 @@ return {
         },
         {
             name = 'readbackTexture',
-            description = '',
+            description = 'Generates or updates ImageData from the contents of the given Texture.\n\nUnlike love.graphics.readbackTextureAsync, this will not finish and return until the GPU completes its own asynchronous work which may take a frame\'s worth of time or more.',
             variants = {
                 {
                     arguments = {
                         {
                             type = 'Texture',
                             name = 'texture',
-                            description = '',
+                            description = 'The Texture to capture.',
                         },
                         {
                             type = 'number',
                             name = 'slice',
-                            description = '',
+                            description = 'The cubemap face index, array index, or depth layer for cubemap, array, or volume type Textures, respectively. This argument is ignored for regular 2D textures.',
                             default = 'nil',
                         },
                         {
                             type = 'number',
                             name = 'mipmap',
-                            description = '',
+                            description = 'The mipmap index to use, for Textures with mipmaps.',
                             default = '1',
                         },
                         {
                             type = 'number',
                             name = 'x',
-                            description = '',
+                            description = 'The x-axis of the top-left corner (in pixels) of the area within the Texture to capture.',
                             default = '0',
                         },
                         {
                             type = 'number',
                             name = 'y',
-                            description = '',
+                            description = 'The y-axis of the top-left corner (in pixels) of the area within the Texture to capture.',
                             default = '0',
                         },
                         {
                             type = 'number',
                             name = 'w',
-                            description = '',
+                            description = 'The width in pixels of the area within the Texture to capture.',
                             default = 'Texture:getPixelWidth()',
                         },
                         {
                             type = 'number',
                             name = 'h',
-                            description = '',
+                            description = 'The height in pixels of the area within the Texture to capture.',
                             default = 'Texture:getPixelHeight()',
                         },
                         {
                             type = 'ImageData',
                             name = 'dest',
-                            description = '',
+                            description = 'Optional existing destination ImageData that will be used instead of creating a new ImageData object.',
                             default = 'nil',
                         },
                         {
                             type = 'number',
                             name = 'destx',
-                            description = '',
+                            description = 'The x-axis of the top-left corner (in pixels) of the area within the destination ImageData to use.',
                             default = '0',
                         },
                         {
                             type = 'number',
                             name = 'desty',
-                            description = '',
+                            description = 'The y-axis of the top-left corner (in pixels) of the area within the destination ImageData to use.',
                             default = '0',
                         },
                     },
@@ -4737,7 +4730,7 @@ return {
                         {
                             type = 'ImageData',
                             name = 'imagedata',
-                            description = '',
+                            description = 'The new ImageData made from the Texture\'s contents.',
                         },
                     }
                 },

@@ -109,6 +109,22 @@ return {
             },
         },
         {
+            name = 'restart',
+            description = 'Restarts the game without relaunching the executable, by adding a quit event with a "restart" parameter to the queue. This cleanly shuts down the main Lua state instance and creates a brand new one.\n\nEquivalent to `love.event.push("quit", "restart", restartarg)`.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'restartarg',
+                            description = 'A value which will appear in the love.restart table field after restarting. Can be a table containing multiple Lua values.',
+                            default = 'nil',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'quit',
             description = 'Adds the quit event to the queue.\n\nThe quit event is a signal for the event handler to close LÖVE. It\'s possible to abort the exit process with the love.quit callback.',
             variants = {
