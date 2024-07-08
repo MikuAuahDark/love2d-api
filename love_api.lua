@@ -530,6 +530,15 @@ return {
                             type = 'function',
                             name = 'mainLoop',
                             description = 'Function which handles one frame, including events and rendering, when called. If this is nil then LÖVE exits immediately.',
+                            signature = {
+                                returns = {
+                                    {
+                                        type = 'any',
+                                        name = 'retval',
+                                        description = 'Exit code or error message or nil to continue.'
+                                    },
+                                },
+                            },
                         },
                     },
                 },
@@ -1054,6 +1063,45 @@ return {
                             type = 'function',
                             name = 'mainLoop',
                             description = 'Function which handlers one frame, including events and rendering when called.',
+                            signature = {
+                                returns = {
+                                    {
+                                        type = 'any',
+                                        name = 'retval',
+                                        description = 'Exit code or error message or nil to continue.'
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'sensorupdated',
+            description = 'Called when the in-device sensor is updated with new values.\nOnly sensors enabled with love.sensor.setEnabled will trigger this event.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'SensorType',
+                            name = 'sensorType',
+                            description = 'The type of sensor.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = 'The new sensor 1st value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = 'The new sensor 2nd value.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'z',
+                            description = 'The new sensor 3rd value.',
                         },
                     },
                 },

@@ -186,6 +186,7 @@ return {
                             type = 'table',
                             name = 'files',
                             description = 'A sequence with the names of all files and subdirectories as strings.',
+                            arraytype = 'string',
                         },
                     },
                 },
@@ -543,6 +544,15 @@ return {
                             type = 'function',
                             name = 'iterator',
                             description = 'A function that iterates over all the lines in the file',
+                            signature = {
+                                returns = {
+                                    {
+                                        type = 'string',
+                                        name = 'line',
+                                        description = 'Single line in the file.'
+                                    },
+                                },
+                            },
                         },
                     },
                 },
