@@ -1988,8 +1988,8 @@ return {
                                     name = 'format',
                                     description = '',
                                 },
-                                array = true,
                             },
+                            tablearray = '',
                         },
                         {
                             type = 'number',
@@ -2762,7 +2762,6 @@ return {
                                     description = 'The alpha component of the vertex color.',
                                     default = '1',
                                 },
-                                array = true,
                             },
                             tablearray = '',
                         },
