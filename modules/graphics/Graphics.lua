@@ -1929,6 +1929,7 @@ return {
                             type = 'table',
                             name = 'slices',
                             description = 'A table containing filepaths to images (or File, FileData, ImageData, or CompressedImageData objects), in an array. Each sub-image must have the same dimensions. A table of tables can also be given, where each sub-table contains all mipmap levels for the slice index of that sub-table.',
+                            arraytype = 'table or string or File or FileData or ImageData or CompressedImageData'
                         },
                         {
                             type = 'table',
@@ -2095,6 +2096,7 @@ return {
                             type = 'table',
                             name = 'settings',
                             description = 'A table containing the given fields:',
+                            default = 'nil',
                             table = {
                                 {
                                     type = 'TextureType',
@@ -2170,6 +2172,7 @@ return {
                             type = 'table',
                             name = 'settings',
                             description = 'A table containing the given fields:',
+                            default = 'nil',
                             table = {
                                 {
                                     type = 'TextureType',
@@ -2187,6 +2190,7 @@ return {
                                     type = 'boolean',
                                     name = 'readable',
                                     description = 'Whether the Canvas is readable (drawable and accessible in a Shader). True by default for regular formats, false by default for depth/stencil formats.',
+                                    default = 'nil',
                                 },
                                 {
                                     type = 'number',
@@ -2468,6 +2472,7 @@ return {
                             type = 'table',
                             name = 'settings',
                             description = 'A table containing the following fields:',
+                            default = 'nil',
                             table = {
                                 {
                                     type = 'number',
@@ -2509,6 +2514,7 @@ return {
                             type = 'table',
                             name = 'settings',
                             description = 'A table containing the following fields:',
+                            default = 'nil',
                             table = {
                                 {
                                     type = 'number',
@@ -2556,6 +2562,7 @@ return {
                             type = 'table',
                             name = 'settings',
                             description = 'A table containing the following fields:',
+                            default = 'nil',
                             table = {
                                 {
                                     type = 'number',
@@ -2597,6 +2604,7 @@ return {
                             type = 'table',
                             name = 'settings',
                             description = 'A table containing the following fields:',
+                            default = 'nil',
                             table = {
                                 {
                                     type = 'number',
@@ -3607,6 +3615,7 @@ return {
                             type = 'table',
                             name = 'settings',
                             description = 'A table containing the following fields:',
+                            default = 'nil',
                             table = {
                                 {
                                     type = 'boolean',
@@ -3688,6 +3697,7 @@ return {
                             type = 'table',
                             name = 'layers',
                             description = 'A table containing filepaths to images (or File, FileData, ImageData, or CompressedImageData objects), in an array. A table of tables can also be given, where each sub-table represents a single mipmap level and contains all layers for that mipmap.',
+                            arraytype = 'table or string or File or FileData or ImageData or CompressedImageData',
                         },
                         {
                             type = 'table',
