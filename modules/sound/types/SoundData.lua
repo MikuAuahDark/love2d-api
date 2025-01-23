@@ -12,6 +12,36 @@ return {
     },
     functions = {
         {
+            name = 'copyFrom',
+            description = 'Copies the specified section of the given SoundData into this one.\n\nSamples start from zero. If a SoundData has multiple channels, each sample contains data for all channels.\n\nThis function does not perform sample rate conversion. If the SoundDatas have different sample rate, the resulting audio may played slower or faster depending on the differences.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'SoundData',
+                            name = 'sourcedata',
+                            description = 'The SoundData to copy from.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'sourcestart',
+                            description = 'The first sample in the source SoundData to copy from.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'samplecount',
+                            description = 'The total number of samples to copy.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'deststart',
+                            description = 'The first sample in the destination SoundData to copy to.',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'getBitDepth',
             description = 'Returns the number of bits per sample.',
             variants = {
@@ -165,6 +195,34 @@ return {
                             type = 'number',
                             name = 'sample',
                             description = 'The normalized samplepoint (range -1.0 to 1.0).',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'slice',
+            description = 'Creates a new copy of a section of this SoundData.\n\nSamples start from zero. If a SoundData has multiple channels, each sample contains data for all channels.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'start',
+                            description = 'The first sample the given SoundData to copy from.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'samplecount',
+                            description = 'The total number of samples to copy to the new SoundData. The default value of -1 copies all samples.',
+                            default = '-1',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'SoundData',
+                            name = 'data',
+                            description = 'The new SoundData containing a copy of the specified section of the original SoundData.',
                         },
                     },
                 },
