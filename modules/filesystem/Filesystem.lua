@@ -4,7 +4,6 @@ return {
     name = 'filesystem',
     description = 'Provides an interface to the user\'s filesystem.',
     types = {
-        (require(path .. 'types.DroppedFile')),
         (require(path .. 'types.File')),
         (require(path .. 'types.FileData')),
     },
@@ -845,6 +844,38 @@ return {
                             type = 'string',
                             name = 'filename',
                             description = 'The filename of the file.',
+                        },
+                        {
+                            type = 'FileMode',
+                            name = 'mode',
+                            description = 'The mode to open the file in.',
+                        },
+                    },
+                    returns = {
+                        {
+                            type = 'File',
+                            name = 'file',
+                            description = 'The new File object, or nil if an error occurred.',
+                        },
+                        {
+                            type = 'string',
+                            name = 'errorstr',
+                            description = 'The error string if an error occurred.',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'openNativeFile',
+            description = 'Opens a new File object outside of love.filesystem paths.\n\nUnlike love.filesystem.openFile which operates on restricted love.filesystem paths, this is more similar to Lua standard io.open. ',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'filename',
+                            description = 'The full platform-dependent path to the file.',
                         },
                         {
                             type = 'FileMode',

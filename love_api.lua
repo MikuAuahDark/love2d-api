@@ -552,7 +552,7 @@ return {
                     description = '',
                     arguments = {
                         {
-                            type = 'DroppedFile',
+                            type = 'File',
                             name = 'file',
                             description = 'The unopened File object representing the file that was dropped.',
                         },
