@@ -1,5 +1,3 @@
-local path = (...):match('(.-)[^%./]+$')
-
 return {
     name = 'DisplayOrientation',
     description = 'Types of device display orientation.',

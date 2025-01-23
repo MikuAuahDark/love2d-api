@@ -864,6 +864,99 @@ return {
             },
         },
         {
+            name = 'showFileDialog',
+            description = 'Open system file dialog capable of picking files and folder.\n\n* Not all platform supports this function or all dialog types. However "openfile" type is supported in most cases.\n* This is an asynchronous function. You\'ll get your result in the callback specified when calling the function.\n* Not all platform supports all settings. Some may support one subset of the settings, some may support the other.\n* In Windows and Android, it\'s recommended to use love.filesystem.openNativeFile to open them instead of standard Lua io.open.',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'FileDialogType',
+                            name = 'type',
+                            description = 'File dialog type.',
+                        },
+                        {
+                            type = 'function',
+                            name = 'callback',
+                            description = 'Function with 3 parameters',
+                            signature = {
+                                arguments = {
+                                    {
+                                        type = 'table',
+                                        name = 'files',
+                                        description = 'Array of full platform-dependent paths to selected file(s)/folder. Empty if the dialog is canceled by the user.',
+                                        arraytype = 'string',
+                                    },
+                                    {
+                                        type = 'string',
+                                        name = 'filtername',
+                                        description = '',
+                                        default = 'nil',
+                                    },
+                                    {
+                                        type = 'string',
+                                        name = 'errorstring',
+                                        description = 'nil if no error',
+                                        default = 'nil',
+                                    },
+                                },
+                            },
+                        },
+                        {
+                            type = 'table',
+                            name = 'settings',
+                            description = 'A table containing the given fields:',
+                            table = {
+                                {
+                                    type = 'string',
+                                    name = 'title',
+                                    description = 'Dialog window title.',
+                                    default = 'nil',
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'acceptlabel',
+                                    description = 'Custom name for the Accept button.',
+                                    default = 'nil',
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'cancellabel',
+                                    description = 'Custom name for the Cancel button.',
+                                    default = 'nil',
+                                },
+                                {
+                                    type = 'string',
+                                    name = 'defaultname',
+                                    description = 'Default folder/file name for the file text box.',
+                                    default = 'nil',
+                                },
+                                {
+                                    type = 'table',
+                                    name = 'filters',
+                                    description = 'Filter names as keys and filter pattern strings as values.',
+                                    default = 'nil',
+                                    tabletype = {'string', 'string'}
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'multiselect',
+                                    description = 'Allow selecting multiple files.',
+                                    default = 'false',
+                                },
+                                {
+                                    type = 'boolean',
+                                    name = 'attachtowindow',
+                                    description = 'Attach to current game window.',
+                                    default = 'false',
+                                },
+                            },
+                            default = 'nil',
+                        },
+                    },
+                },
+            },
+        },
+        {
             name = 'showMessageBox',
             description = 'Displays a message box dialog above the love window. The message box contains a title, optional text, and buttons.',
             variants = {
@@ -1094,6 +1187,7 @@ return {
     },
     enums = {
         (require(path .. 'enums.DisplayOrientation')),
+        (require(path .. 'enums.FileDialogType')),
         (require(path .. 'enums.FullscreenType')),
         (require(path .. 'enums.MessageBoxType')),
     },
