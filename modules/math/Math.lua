@@ -576,7 +576,6 @@ return {
                 },
             },
         },
-        
         {
             name = 'perlinNoise',
             description = 'Generates a Perlin noise value in 1-4 dimensions. The return value will always be the same, given the same arguments.\n\nIt is widely used for procedural content generation.\n\nThere are many webpages which discuss Perlin and Simplex noise in detail.',

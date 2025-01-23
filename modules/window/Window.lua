@@ -297,7 +297,7 @@ return {
                                 },
                                 {
                                     type = 'number',
-                                    name = 'display',
+                                    name = 'displayindex',
                                     description = 'The index of the display the window is currently in, if multiple monitors are available.',
                                 },
                                 {
@@ -722,10 +722,10 @@ return {
                                     default = 'true',
                                 },
                                 {
-                                    type = 'number',
+                                    type = 'boolean',
                                     name = 'depth',
-                                    description = 'The number of bits in the depth buffer.',
-                                    default = '0',
+                                    description = '',
+                                    default = 'false',
                                 },
                                 {
                                     type = 'boolean',
@@ -747,7 +747,7 @@ return {
                                 },
                                 {
                                     type = 'number',
-                                    name = 'display',
+                                    name = 'displayindex',
                                     description = 'The index of the display to show the window in, if multiple monitors are available.',
                                     default = '1',
                                 },
@@ -762,12 +762,6 @@ return {
                                     name = 'minheight',
                                     description = 'The minimum height of the window, if it\'s resizable. Cannot be less than 1.',
                                     default = '1',
-                                },
-                                {
-                                    type = 'boolean',
-                                    name = 'highdpi',
-                                    description = 'True if high-dpi mode should be used on Retina displays in macOS and iOS. Does nothing on non-Retina displays.',
-                                    default = 'false',
                                 },
                                 {
                                     type = 'number',
@@ -1143,7 +1137,7 @@ return {
                                 },
                                 {
                                     type = 'number',
-                                    name = 'display',
+                                    name = 'displayindex',
                                     description = 'The index of the display to show the window in, if multiple monitors are available.',
                                 },
                                 {

@@ -216,14 +216,14 @@ return {
                                 },
                                 {
                                     type = 'boolean',
-                                    name = 'gammacorrect',
-                                    description = 'Determines whether gamma-correct rendering is enabled, when the system supports it.',
+                                    name = 'highdpi',
+                                    description = 'See love.window.getPixelScale, love.window.toPixels, and love.window.fromPixels. It is recommended to keep this option disabled if you can\'t test your game on a Mac or iOS system with a Retina display, because code will need tweaking to make sure things look correct.',
                                     default = 'false',
                                 },
                                 {
                                     type = 'boolean',
-                                    name = 'highdpi',
-                                    description = 'See love.window.getPixelScale, love.window.toPixels, and love.window.fromPixels. It is recommended to keep this option disabled if you can\'t test your game on a Mac or iOS system with a Retina display, because code will need tweaking to make sure things look correct.',
+                                    name = 'trackpadtouch',
+                                    description = 'Trackpad touch events will not be generated unless it\'s enabled.',
                                     default = 'false',
                                 },
                                 {
@@ -256,6 +256,12 @@ return {
                                             description = '',
                                             default = '{}',
                                             arraytype = 'string',
+                                        },
+                                        {
+                                            type = 'boolean',
+                                            name = 'gammacorrect',
+                                            description = 'Determines whether gamma-correct rendering is enabled, when the system supports it.',
+                                            default = 'false',
                                         },
                                         {
                                             type = 'boolean',
@@ -350,10 +356,10 @@ return {
                                             default = 'true',
                                         },
                                         {
-                                            type = 'number',
+                                            type = 'boolean',
                                             name = 'depth',
-                                            description = 'The number of bits per sample in the depth buffer (16/24/32, default nil)',
-                                            default = 'nil',
+                                            description = '',
+                                            default = 'false',
                                         },
                                         {
                                             type = 'number',
@@ -369,7 +375,7 @@ return {
                                         },
                                         {
                                             type = 'number',
-                                            name = 'display',
+                                            name = 'displayindex',
                                             description = 'The index of the display to show the window in, if multiple monitors are available.',
                                             default = '1',
                                         },
