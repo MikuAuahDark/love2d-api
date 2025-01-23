@@ -247,6 +247,33 @@ return {
                                 },
                                 {
                                     type = 'table',
+                                    name = 'graphics',
+                                    description = '',
+                                    table = {
+                                        {
+                                            type = 'table',
+                                            name = 'excluderenderers',
+                                            description = '',
+                                            default = '{}',
+                                            arraytype = 'string',
+                                        },
+                                        {
+                                            type = 'boolean',
+                                            name = 'lowpower',
+                                            description = '',
+                                            default = 'false',
+                                        },
+                                        {
+                                            type = 'table',
+                                            name = 'renderers',
+                                            description = '',
+                                            default = '{"vulkan", "metal", "opengl"}',
+                                            arraytype = 'string',
+                                        },
+                                    }
+                                },
+                                {
+                                    type = 'table',
                                     name = 'window',
                                     description = 'It is possible to defer window creation until love.window.setMode is first called in your code. To do so, set t.window = nil in love.conf (or t.screen = nil in older versions.) If this is done, LÖVE may crash if any function from love.graphics is called before the first love.window.setMode in your code.\n\nThe t.window table was named t.screen in versions prior to 0.9.0. The t.screen table doesn\'t exist in love.conf in 0.9.0, and the t.window table doesn\'t exist in love.conf in 0.8.0. This means love.conf will fail to execute (therefore it will fall back to default values) if care is not taken to use the correct table for the LÖVE version being used.',
                                     table = {
@@ -481,6 +508,16 @@ return {
                             name = 'path',
                             description = 'The full platform-dependent path to the directory. It can be used as an argument to love.filesystem.mount, in order to gain read access to the directory with love.filesystem.',
                         },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                        },
                     },
                 },
             },
@@ -510,6 +547,54 @@ return {
             description = 'Callback function used to draw on the screen every frame.',
             variants = {
                 {
+                },
+            },
+        },
+        {
+            name = 'dropbegan',
+            description = '',
+            variants = {
+                {
+                },
+            },
+        },
+        {
+            name = 'dropcompleted',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = 'dropmoved',
+            description = '',
+            variants = {
+                {
+                    arguments = {
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
+                        },
+                    },
                 },
             },
         },
@@ -545,6 +630,14 @@ return {
             },
         },
         {
+            name = 'exposesd',
+            description = '',
+            variants = {
+                {
+                },
+            },
+        },
+        {
             name = 'filedropped',
             description = 'Callback function triggered when a file is dragged and dropped onto the window.',
             variants = {
@@ -555,6 +648,16 @@ return {
                             type = 'File',
                             name = 'file',
                             description = 'The unopened File object representing the file that was dropped.',
+                        },
+                        {
+                            type = 'number',
+                            name = 'x',
+                            description = '',
+                        },
+                        {
+                            type = 'number',
+                            name = 'y',
+                            description = '',
                         },
                     },
                 },
@@ -1018,6 +1121,14 @@ return {
             },
         },
         {
+            name = 'occluded',
+            description = '',
+            variants = {
+                {
+                },
+            },
+        },
+        {
             name = 'quit',
             description = 'Callback function triggered when the game is closed.',
             variants = {
@@ -1367,16 +1478,6 @@ return {
                             type = 'number',
                             name = 'y',
                             description = 'Amount of vertical mouse wheel movement. Positive values indicate upward movement.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'px',
-                            description = 'Precise x value.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'py',
-                            description = 'Precise y value.',
                         },
                         {
                             type = 'string',
